@@ -6,8 +6,24 @@ if (!isset($_GET['id'])) {
 }
 
 $id = $_GET['id'];
+$limiter = $_GET['limiter'];
+if ($limiter == "bspermit") {
+    $stmt = $conn->prepare("SELECT * FROM tbl_bspermit WHERE id_bspermit = ?");
+    $title_ = "Business Permit Receipt";
+} else if ($limiter == "indigency") {
+    $title_ = "Indigency Receipt";
+    $stmt = $conn->prepare("SELECT * FROM tbl_indigency WHERE id_indigency = ?");
+} else if ($limiter == "rescert") {
+    $title_ = "Residency Receipt";
+    $stmt = $conn->prepare("SELECT * FROM tbl_rescert WHERE id_rescert = ?");
+} else if ($limiter == "clearance") {
+    $title_ = "Barangay Clearance Receipt";
+    $stmt = $conn->prepare("SELECT * FROM tbl_clearance WHERE id_clearance = ?");
+} else if ($limiter == "peace") {
+    $title_ = "Blotter Receipt";
+    $stmt = $conn->prepare("SELECT * FROM tbl_blotter WHERE id_blotter = ?");
+}
 
-$stmt = $conn->prepare("SELECT * FROM tbl_bspermit WHERE id_bspermit = ?");
 $stmt->execute([$id]);
 $resident = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -21,7 +37,7 @@ if (!$resident) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Business Permit Receipt</title>
+    <title><?php echo $title_; ?></title>
 
     <style>
         @media print {
@@ -117,7 +133,7 @@ if (!$resident) {
     <div class="receipt">
 
         <div class="receipt-header">
-            <h2>Business Permit Receipt</h2>
+            <h2><?php echo $title_; ?></h2>
         </div>
 
         <div class="receipt-body">
@@ -133,13 +149,6 @@ if (!$resident) {
                 <div class="label">Full Name</div>
                 <div class="value">
                     <?= strtoupper(htmlspecialchars($resident['fname'] . ' ' . $resident['mi'] . ' ' . $resident['lname'])) ?>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="label">Address</div>
-                <div class="value">
-                    <?= htmlspecialchars($resident['street'] . ', ' . $resident['brgy'] . ', ' . $resident['municipal']) ?>
                 </div>
             </div>
 

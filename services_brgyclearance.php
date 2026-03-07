@@ -426,10 +426,12 @@ $bmis->create_brgyclearance();
             width: 100px;
             height: auto;
         }
-          .custom-blue {
-  background-color: #1d4ed8; /* Tailwind blue-700 color */
-  color: white !important;
-}
+
+        .custom-blue {
+            background-color: #1d4ed8;
+            /* Tailwind blue-700 color */
+            color: white !important;
+        }
     </style>
     <nav class="navbar navbar-expand-lg custom-blue sticky-top">
         <div class="logo">

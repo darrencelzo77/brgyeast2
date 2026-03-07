@@ -1461,14 +1461,56 @@ class BMISClass
 
 
             $connection = $this->openConn();
-            $stmt = $connection->prepare("INSERT INTO tbl_rescert (`id_rescert`, `id_resident`, `lname`, `fname`, `mi`,
-             `age`,`nationality`, `houseno`, `street`,`brgy`, `municipal`, `date`,`purpose`)
-            VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)");
 
-            $stmt->execute([$id_rescert, $id_resident, $lname, $fname, $mi,  $age, $nationality, $houseno,  $street, $brgy, $municipal, $date, $purpose]);
+
+            $stmtCN = $connection->prepare("
+   SELECT control_no
+   FROM tbl_rescert
+   ORDER BY id_rescert DESC
+   LIMIT 1
+   ");
+            $stmtCN->execute();
+            $lastCN = $stmtCN->fetch(PDO::FETCH_ASSOC);
+
+            if ($lastCN && !empty($lastCN['control_no'])) {
+                $number = (int) str_replace('TN-', '', $lastCN['control_no']);
+                $number++;
+            } else {
+                $number = 1;
+            }
+
+            $control_no = 'TR-' . str_pad($number, 4, '0', STR_PAD_LEFT);
+
+            // -----------------------------
+            // 4. GENERATE QR CODE (phpqrcode)
+            // -----------------------------
+
+            $qrDir = 'uploads/qr_codes/';
+            if (!is_dir($qrDir)) mkdir($qrDir, 0777, true);
+
+            $qrFile = $qrDir . $control_no . '.png';
+            QRcode::png($control_no, $qrFile, QR_ECLEVEL_L, 4);
+
+
+
+
+
+
+            $stmt = $connection->prepare("INSERT INTO tbl_rescert (`id_rescert`, `id_resident`, `lname`, `fname`, `mi`,
+             `age`,`nationality`, `houseno`, `street`,`brgy`, `municipal`, `date`,`purpose`,`control_no`,`qr_code`)
+            VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?)");
+
+            $stmt->execute([$id_rescert, $id_resident, $lname, $fname, $mi,  $age, $nationality, $houseno,  $street, $brgy, $municipal, $date, $purpose, $control_no, $qrFile]);
 
             $message2 = "Application Applied!";
-            echo "<script type='text/javascript'>alert('$message2');</script>";
+
+            $lastId = $connection->lastInsertId();
+
+            echo "
+   <script>
+       alert('Successfully Added!\\nTransaction No: $control_no');
+       window.open('receipt_generic.php?limiter=rescert&id=$lastId', '_blank');
+   </script>";
             header("refresh: 0");
         }
     }
@@ -1492,14 +1534,50 @@ class BMISClass
 
 
             $connection = $this->openConn();
-            $stmt = $connection->prepare("INSERT INTO tbl_rescert (`lname`, `fname`, `mi`, `age`, `nationality`, `houseno`, `street`, `brgy`, `municipal`, `date`, `purpose`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 
-            $stmt->execute([$lname, $fname, $mi, $age, $nationality, $houseno, $street, $brgy, $municipal, $date, $purpose]);
+            $stmtCN = $connection->prepare("
+   SELECT control_no
+   FROM tbl_rescert
+   ORDER BY id_rescert DESC
+   LIMIT 1
+   ");
+            $stmtCN->execute();
+            $lastCN = $stmtCN->fetch(PDO::FETCH_ASSOC);
+
+            if ($lastCN && !empty($lastCN['control_no'])) {
+                $number = (int) str_replace('TR-', '', $lastCN['control_no']);
+                $number++;
+            } else {
+                $number = 1;
+            }
+
+            $control_no = 'TR-' . str_pad($number, 4, '0', STR_PAD_LEFT);
+
+            // -----------------------------
+            // 4. GENERATE QR CODE (phpqrcode)
+            // -----------------------------
+
+            $qrDir = 'uploads/qr_codes/';
+            if (!is_dir($qrDir)) mkdir($qrDir, 0777, true);
+
+            $qrFile = $qrDir . $control_no . '.png';
+            QRcode::png($control_no, $qrFile, QR_ECLEVEL_L, 4);
+
+            $stmt = $connection->prepare("INSERT INTO tbl_rescert (`lname`, `fname`, `mi`, `age`, `nationality`, `houseno`, `street`, `brgy`, `municipal`, `date`, `purpose`,`control_no`,`qr_code`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,? )");
+
+
+            $stmt->execute([$lname, $fname, $mi, $age, $nationality, $houseno, $street, $brgy, $municipal, $date, $purpose, $control_no, $qrFile]);
 
 
             $message2 = "Application Applied!";
-            echo "<script type='text/javascript'>alert('$message2');</script>";
+            $lastId = $connection->lastInsertId();
+
+            echo "
+   <script>
+       alert('Successfully Added!\\nTransaction No: $control_no');
+       window.open('receipt_generic.php?limiter=rescert&id=$lastId', '_blank');
+   </script>";
             header("refresh: 0");
         }
     }
@@ -1625,14 +1703,50 @@ class BMISClass
             $date = $_POST['date'];
 
             $connection = $this->openConn();
-            $stmt = $connection->prepare("INSERT INTO tbl_indigency (`id_indigency`, `id_resident`, `lname`, `fname`, `mi`,
-             `nationality`, `houseno`, `street`,`brgy`, `municipal`,`purpose`, `date`)
-            VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
 
-            $stmt->execute([$id_indigency, $id_resident, $lname, $fname, $mi,  $nationality, $houseno,  $street, $brgy, $municipal, $purpose, $date]);
+            $stmtCN = $connection->prepare("
+   SELECT control_no
+   FROM tbl_indigency
+   ORDER BY id_indigency DESC
+   LIMIT 1
+   ");
+            $stmtCN->execute();
+            $lastCN = $stmtCN->fetch(PDO::FETCH_ASSOC);
+
+            if ($lastCN && !empty($lastCN['control_no'])) {
+                $number = (int) str_replace('TR-', '', $lastCN['control_no']);
+                $number++;
+            } else {
+                $number = 1;
+            }
+
+            $control_no = 'TR-' . str_pad($number, 4, '0', STR_PAD_LEFT);
+
+            // -----------------------------
+            // 4. GENERATE QR CODE (phpqrcode)
+            // -----------------------------
+
+            $qrDir = 'uploads/qr_codes/';
+            if (!is_dir($qrDir)) mkdir($qrDir, 0777, true);
+
+            $qrFile = $qrDir . $control_no . '.png';
+            QRcode::png($control_no, $qrFile, QR_ECLEVEL_L, 4);
+
+
+            $stmt = $connection->prepare("INSERT INTO tbl_indigency (`id_indigency`, `id_resident`, `lname`, `fname`, `mi`,
+             `nationality`, `houseno`, `street`,`brgy`, `municipal`,`purpose`, `date`, `control_no`, `qr_code`)
+            VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?)");
+
+            $stmt->execute([$id_indigency, $id_resident, $lname, $fname, $mi,  $nationality, $houseno,  $street, $brgy, $municipal, $purpose, $date, $control_no, $qrFile]);
 
             $message2 = "Application Applied!";
-            echo "<script type='text/javascript'>alert('$message2');</script>";
+            $lastId = $connection->lastInsertId();
+
+            echo "
+   <script>
+       alert('Successfully Added!\\Transaction No: $control_no');
+       window.open('receipt_generic.php?limiter=indigency&id=$lastId', '_blank');
+   </script>";
             header("refresh: 0");
         }
     }
@@ -1654,14 +1768,46 @@ class BMISClass
             $date = $_POST['date'];
 
             $connection = $this->openConn();
-            $stmt = $connection->prepare("INSERT INTO tbl_indigency (`lname`, `fname`, `mi`,
-             `nationality`, `houseno`, `street`,`brgy`, `municipal`,`purpose`, `date`)
-            VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmtCN = $connection->prepare("
+  SELECT control_no
+   FROM tbl_indigency
+   ORDER BY id_indigency DESC
+   LIMIT 1
+   ");
+            $stmtCN->execute();
+            $lastCN = $stmtCN->fetch(PDO::FETCH_ASSOC);
 
-            $stmt->execute([$lname, $fname, $mi,  $nationality, $houseno,  $street, $brgy, $municipal, $purpose, $date]);
+            if ($lastCN && !empty($lastCN['control_no'])) {
+                $number = (int) str_replace('TR-', '', $lastCN['control_no']);
+                $number++;
+            } else {
+                $number = 1;
+            }
+
+            $control_no = 'TR-' . str_pad($number, 4, '0', STR_PAD_LEFT);
+
+            // -----------------------------
+            // 4. GENERATE QR CODE (phpqrcode)
+            // -----------------------------
+
+            $qrDir = 'uploads/qr_codes/';
+            if (!is_dir($qrDir)) mkdir($qrDir, 0777, true);
+
+            $qrFile = $qrDir . $control_no . '.png';
+            QRcode::png($control_no, $qrFile, QR_ECLEVEL_L, 4);
+            $stmt = $connection->prepare("INSERT INTO tbl_indigency (`lname`, `fname`, `mi`,
+             `nationality`, `houseno`, `street`,`brgy`, `municipal`,`purpose`, `date`, `control_no`, `qr_code`)
+            VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+            $stmt->execute([$lname, $fname, $mi,  $nationality, $houseno,  $street, $brgy, $municipal, $purpose, $date, $control_no, $qrFile]);
 
             $message2 = "Application Applied!";
-            echo "<script type='text/javascript'>alert('$message2');</script>";
+            $lastId = $connection->lastInsertId();
+            echo "
+   <script>
+       alert('Successfully Added!\\nTransaction No: $control_no');
+       window.open('receipt_generic.php?limiter=indigency&id=$lastId', '_blank');
+   </script>";
             header("refresh: 0");
         }
     }
@@ -1746,9 +1892,43 @@ class BMISClass
             $age = $_POST['age'];
 
             $connection = $this->openConn();
+
+            $stmtCN = $connection->prepare("
+   SELECT control_no
+   FROM tbl_clearance
+   ORDER BY id_clearance DESC
+   LIMIT 1
+   ");
+            $stmtCN->execute();
+            $lastCN = $stmtCN->fetch(PDO::FETCH_ASSOC);
+
+            if ($lastCN && !empty($lastCN['control_no'])) {
+                $number = (int) str_replace('TR-', '', $lastCN['control_no']);
+                $number++;
+            } else {
+                $number = 1;
+            }
+
+            $control_no = 'TR-' . str_pad($number, 4, '0', STR_PAD_LEFT);
+
+            // -----------------------------
+            // 4. GENERATE QR CODE (phpqrcode)
+            // -----------------------------
+
+            $qrDir = 'uploads/qr_codes/';
+            if (!is_dir($qrDir)) mkdir($qrDir, 0777, true);
+
+            $qrFile = $qrDir . $control_no . '.png';
+            QRcode::png($control_no, $qrFile, QR_ECLEVEL_L, 4);
+
+
+
+
+
+
             $stmt = $connection->prepare("INSERT INTO tbl_clearance (`id_clearance`, `id_resident`, `lname`, `fname`, `mi`,
-             `purpose`, `houseno`, `street`,`brgy`, `municipal`, `status`, `age`)
-            VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+             `purpose`, `houseno`, `street`,`brgy`, `municipal`, `status`, `age`, `control_no`, `qr_code`)
+            VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?)");
 
             $stmt->execute([
                 $id_clearance,
@@ -1762,19 +1942,26 @@ class BMISClass
                 $brgy,
                 $municipal,
                 $status,
-                $age
+                $age,
+                $control_no,
+                $qrFile
             ]);
 
             $message2 = "Application Applied!";
-            echo "<script type='text/javascript'>alert('$message2');</script>";
+            $lastId = $connection->lastInsertId();
+
+            echo "
+   <script>
+       alert('Successfully Added!\\nTransaction No: $control_no');
+       window.open('receipt_generic.php?limiter=clearance&id=$lastId', '_blank');
+   </script>";
             header("refresh: 0");
         }
     }
-
     public function create_brgyclearance_walkin()
     {
-
         if (isset($_POST['create_brgyclearance_walkin'])) {
+
             $id_clearance = $_POST['id_clearance'];
             $lname = $_POST['lname'];
             $fname = $_POST['fname'];
@@ -1788,11 +1975,67 @@ class BMISClass
             $age = $_POST['age'];
 
             $connection = $this->openConn();
-            $stmt = $connection->prepare("INSERT INTO tbl_clearance (`lname`, `fname`, `mi`,
-             `purpose`, `houseno`, `street`,`brgy`, `municipal`, `status`, `age`)
-            VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+            /* -----------------------------
+           GENERATE CONTROL NUMBER
+        ----------------------------- */
+
+            $stmtCN = $connection->prepare("
+            SELECT control_no
+            FROM tbl_clearance
+            ORDER BY id_clearance DESC
+            LIMIT 1
+        ");
+
+            $stmtCN->execute();
+            $lastCN = $stmtCN->fetch(PDO::FETCH_ASSOC);
+
+            if ($lastCN && !empty($lastCN['control_no'])) {
+                $number = (int) str_replace('TR-', '', $lastCN['control_no']);
+                $number++;
+            } else {
+                $number = 1;
+            }
+
+            $control_no = 'TR-' . str_pad($number, 4, '0', STR_PAD_LEFT);
+
+            /* -----------------------------
+           GENERATE QR CODE
+        ----------------------------- */
+
+            $qrDir = 'uploads/qr_codes/';
+            if (!is_dir($qrDir)) mkdir($qrDir, 0777, true);
+
+            $qrFile = $qrDir . $control_no . '.png';
+
+            QRcode::png($control_no, $qrFile, QR_ECLEVEL_L, 4);
+
+            /* -----------------------------
+           INSERT RECORD
+        ----------------------------- */
+
+            $stmt = $connection->prepare("
+            INSERT INTO tbl_clearance
+            (
+                id_clearance,
+                lname,
+                fname,
+                mi,
+                purpose,
+                houseno,
+                street,
+                brgy,
+                municipal,
+                status,
+                age,
+                control_no,
+                qr_code
+            )
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
+        ");
 
             $stmt->execute([
+                $id_clearance,
                 $lname,
                 $fname,
                 $mi,
@@ -1802,11 +2045,19 @@ class BMISClass
                 $brgy,
                 $municipal,
                 $status,
-                $age
+                $age,
+                $control_no,
+                $qrFile
             ]);
 
-            $message2 = "Application Applied!";
-            echo "<script type='text/javascript'>alert('$message2');</script>";
+            $lastId = $connection->lastInsertId();
+
+            echo "
+        <script>
+            alert('Successfully Added!\\nTransaction No: $control_no');
+            window.open('receipt_generic.php?limiter=clearance&id=$lastId', '_blank');
+        </script>";
+
             header("refresh: 0");
         }
     }
@@ -1993,8 +2244,8 @@ class BMISClass
             $lastId = $connection->lastInsertId();
 
             echo "<script>
-            alert('Business permit created successfully!\\nControl No: $control_no');
-            window.open('receipt_brgy_permit.php?id=$lastId', '_blank');
+            alert('Business permit created successfully!\\nTransaction No: $control_no');
+            window.open('receipt_generic.php?limiter=bspermit&id=$lastId', '_blank');
         </script>";
         }
     }
@@ -2103,8 +2354,8 @@ class BMISClass
             $lastId = $connection->lastInsertId();
 
             echo "<script>
-            alert('Business permit (walk-in) created successfully!\\nControl No: $control_no');
-            window.open('receipt_brgy_permit.php?id=$lastId', '_blank');
+            alert('Business permit (walk-in) created successfully!\\nTransaction No: $control_no');
+              window.open('receipt_generic.php?limiter=bspermit&id=$lastId', '_blank');
         </script>";
         }
     }
@@ -2322,6 +2573,8 @@ class BMISClass
             $narrative = $_POST['narrative'];
 
             $connection = $this->openConn();
+
+            
             $stmt = $connection->prepare("INSERT INTO tbl_blotter (`id_blotter`, `id_resident`, `lname`, `fname`, `mi`,
             `houseno`, `street`,`brgy`, `municipal`, `contact`, `narrative`)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
