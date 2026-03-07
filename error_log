@@ -1,0 +1,277 @@
+[19-Apr-2024 17:32:40 America/New_York] PHP Parse error:  syntax error, unexpected 'error_reporting' (T_STRING) in /home/zynaeljv/jfcm.us/index.php on line 2
+[19-Apr-2024 17:50:14 America/New_York] PHP Parse error:  syntax error, unexpected 'error_reporting' (T_STRING) in /home/zynaeljv/jfcm.us/index.php on line 2
+[19-Apr-2024 17:53:06 America/New_York] PHP Parse error:  syntax error, unexpected 'error_reporting' (T_STRING) in /home/zynaeljv/jfcm.us/index.php on line 2
+[19-Apr-2024 17:53:09 America/New_York] PHP Parse error:  syntax error, unexpected 'error_reporting' (T_STRING) in /home/zynaeljv/jfcm.us/index.php on line 2
+[19-Apr-2024 17:57:37 America/New_York] PHP Parse error:  syntax error, unexpected 'error_reporting' (T_STRING) in /home/zynaeljv/jfcm.us/index.php on line 2
+[19-Apr-2024 17:57:39 America/New_York] PHP Parse error:  syntax error, unexpected 'error_reporting' (T_STRING) in /home/zynaeljv/jfcm.us/index.php on line 2
+[19-Apr-2024 18:00:09 America/New_York] PHP Parse error:  syntax error, unexpected 'error_reporting' (T_STRING) in /home/zynaeljv/jfcm.us/index.php on line 2
+[19-Apr-2024 18:02:34 America/New_York] PHP Parse error:  syntax error, unexpected 'error_reporting' (T_STRING) in /home/zynaeljv/jfcm.us/index.php on line 2
+[19-Apr-2024 18:09:01 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'zynaeljv'@'localhost' (using password: YES) in /home/zynaeljv/jfcm.us/classes/conn.php:3
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/classes/conn.php(3): mysqli->__construct()
+#1 /home/zynaeljv/jfcm.us/index.php(179): require('/home/zynaeljv/...')
+#2 {main}
+  thrown in /home/zynaeljv/jfcm.us/classes/conn.php on line 3
+[19-Apr-2024 18:10:28 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user '
+zynaeljv_bmisinformation'@'localhost' (using password: YES) in /home/zynaeljv/jfcm.us/classes/conn.php:3
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/classes/conn.php(3): mysqli->__construct()
+#1 /home/zynaeljv/jfcm.us/index.php(179): require('/home/zynaeljv/...')
+#2 {main}
+  thrown in /home/zynaeljv/jfcm.us/classes/conn.php on line 3
+[19-Apr-2024 18:11:16 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'zynaeljv'@'localhost' (using password: YES) in /home/zynaeljv/jfcm.us/classes/conn.php:2
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/classes/conn.php(2): mysqli->__construct()
+#1 /home/zynaeljv/jfcm.us/index.php(179): require('/home/zynaeljv/...')
+#2 {main}
+  thrown in /home/zynaeljv/jfcm.us/classes/conn.php on line 2
+[19-Apr-2024 18:13:10 America/New_York] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'zynaeljv'@'localhost' (using password: YES) in /home/zynaeljv/jfcm.us/classes/conn.php:2
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/classes/conn.php(2): mysqli->__construct()
+#1 /home/zynaeljv/jfcm.us/index.php(179): require('/home/zynaeljv/...')
+#2 {main}
+  thrown in /home/zynaeljv/jfcm.us/classes/conn.php on line 2
+[19-Apr-2024 18:14:26 America/New_York] PHP Fatal error:  Uncaught PDOException: SQLSTATE[28000] [1045] Access denied for user 'zynaeljv'@'localhost' (using password: YES) in /home/zynaeljv/jfcm.us/classes/conn.php:4
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/classes/conn.php(4): PDO->__construct()
+#1 /home/zynaeljv/jfcm.us/index.php(179): require('/home/zynaeljv/...')
+#2 {main}
+  thrown in /home/zynaeljv/jfcm.us/classes/conn.php on line 4
+[19-Apr-2024 18:16:29 America/New_York] PHP Fatal error:  Uncaught TypeError: PDO::__construct(): Argument #4 ($options) must be of type ?array, string given in /home/zynaeljv/jfcm.us/classes/conn.php:4
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/classes/conn.php(4): PDO->__construct()
+#1 /home/zynaeljv/jfcm.us/index.php(179): require('/home/zynaeljv/...')
+#2 {main}
+  thrown in /home/zynaeljv/jfcm.us/classes/conn.php on line 4
+[19-Apr-2024 18:16:58 America/New_York] PHP Parse error:  syntax error, unexpected token "<", expecting end of file in /home/zynaeljv/jfcm.us/classes/conn.php on line 9
+[19-Apr-2024 18:17:18 America/New_York] PHP Fatal error:  Uncaught TypeError: PDO::__construct(): Argument #4 ($options) must be of type ?array, string given in /home/zynaeljv/jfcm.us/classes/conn.php:4
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/classes/conn.php(4): PDO->__construct()
+#1 /home/zynaeljv/jfcm.us/index.php(179): require('/home/zynaeljv/...')
+#2 {main}
+  thrown in /home/zynaeljv/jfcm.us/classes/conn.php on line 4
+[19-Apr-2024 18:18:10 America/New_York] PHP Fatal error:  Uncaught PDOException: SQLSTATE[28000] [1045] Access denied for user 'zynaeljv'@'localhost' (using password: YES) in /home/zynaeljv/jfcm.us/classes/conn.php:4
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/classes/conn.php(4): PDO->__construct()
+#1 /home/zynaeljv/jfcm.us/index.php(179): require('/home/zynaeljv/...')
+#2 {main}
+  thrown in /home/zynaeljv/jfcm.us/classes/conn.php on line 4
+[19-Apr-2024 18:18:49 America/New_York] PHP Fatal error:  Uncaught PDOException: SQLSTATE[28000] [1045] Access denied for user 'bmisinformation'@'localhost' (using password: YES) in /home/zynaeljv/jfcm.us/classes/conn.php:4
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/classes/conn.php(4): PDO->__construct()
+#1 /home/zynaeljv/jfcm.us/index.php(179): require('/home/zynaeljv/...')
+#2 {main}
+  thrown in /home/zynaeljv/jfcm.us/classes/conn.php on line 4
+[19-Apr-2024 18:20:51 America/New_York] PHP Fatal error:  Uncaught PDOException: SQLSTATE[28000] [1045] Access denied for user 'bmisinformation'@'localhost' (using password: YES) in /home/zynaeljv/jfcm.us/classes/conn.php:4
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/classes/conn.php(4): PDO->__construct()
+#1 /home/zynaeljv/jfcm.us/index.php(179): require('/home/zynaeljv/...')
+#2 {main}
+  thrown in /home/zynaeljv/jfcm.us/classes/conn.php on line 4
+[19-Apr-2024 18:20:53 America/New_York] PHP Fatal error:  Uncaught PDOException: SQLSTATE[28000] [1045] Access denied for user 'bmisinformation'@'localhost' (using password: YES) in /home/zynaeljv/jfcm.us/classes/conn.php:4
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/classes/conn.php(4): PDO->__construct()
+#1 /home/zynaeljv/jfcm.us/index.php(179): require('/home/zynaeljv/...')
+#2 {main}
+  thrown in /home/zynaeljv/jfcm.us/classes/conn.php on line 4
+[19-Apr-2024 18:23:41 America/New_York] PHP Fatal error:  Uncaught PDOException: SQLSTATE[3D000]: Invalid catalog name: 1046 No database selected in /home/zynaeljv/jfcm.us/index.php:188
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/index.php(188): PDOStatement->execute()
+#1 {main}
+  thrown in /home/zynaeljv/jfcm.us/index.php on line 188
+[19-Apr-2024 18:24:43 America/New_York] PHP Parse error:  syntax error, unexpected 'error_reporting' (T_STRING) in /home/zynaeljv/jfcm.us/index.php on line 2
+[19-Apr-2024 18:24:46 America/New_York] PHP Parse error:  syntax error, unexpected 'error_reporting' (T_STRING) in /home/zynaeljv/jfcm.us/index.php on line 2
+[19-Apr-2024 18:25:03 America/New_York] PHP Parse error:  syntax error, unexpected 'error_reporting' (T_STRING) in /home/zynaeljv/jfcm.us/index.php on line 2
+[19-Apr-2024 18:26:54 America/New_York] PHP Parse error:  syntax error, unexpected 'error_reporting' (T_STRING) in /home/zynaeljv/jfcm.us/index.php on line 2
+[19-Apr-2024 18:26:56 America/New_York] PHP Parse error:  syntax error, unexpected 'error_reporting' (T_STRING) in /home/zynaeljv/jfcm.us/index.php on line 2
+[19-Apr-2024 18:27:48 America/New_York] PHP Fatal error:  Uncaught PDOException: SQLSTATE[3D000]: Invalid catalog name: 1046 No database selected in /home/zynaeljv/jfcm.us/index.php:188
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/index.php(188): PDOStatement->execute()
+#1 {main}
+  thrown in /home/zynaeljv/jfcm.us/index.php on line 188
+[19-Apr-2024 18:28:58 America/New_York] PHP Fatal error:  Uncaught PDOException: SQLSTATE[3D000]: Invalid catalog name: 1046 No database selected in /home/zynaeljv/jfcm.us/index.php:188
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/index.php(188): PDOStatement->execute()
+#1 {main}
+  thrown in /home/zynaeljv/jfcm.us/index.php on line 188
+[19-Apr-2024 18:30:24 America/New_York] PHP Parse error:  syntax error, unexpected 'error_reporting' (T_STRING) in /home/zynaeljv/jfcm.us/index.php on line 2
+[19-Apr-2024 18:30:27 America/New_York] PHP Parse error:  syntax error, unexpected 'error_reporting' (T_STRING) in /home/zynaeljv/jfcm.us/index.php on line 2
+[19-Apr-2024 18:31:05 America/New_York] PHP Parse error:  syntax error, unexpected 'error_reporting' (T_STRING) in /home/zynaeljv/jfcm.us/index.php on line 2
+[19-Apr-2024 18:31:10 America/New_York] PHP Parse error:  syntax error, unexpected 'error_reporting' (T_STRING) in /home/zynaeljv/jfcm.us/index.php on line 2
+[19-Apr-2024 18:31:45 America/New_York] PHP Fatal error:  Uncaught PDOException: SQLSTATE[3D000]: Invalid catalog name: 1046 No database selected in /home/zynaeljv/jfcm.us/index.php:188
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/index.php(188): PDOStatement->execute()
+#1 {main}
+  thrown in /home/zynaeljv/jfcm.us/index.php on line 188
+[19-Apr-2024 18:33:24 America/New_York] PHP Fatal error:  Uncaught PDOException: SQLSTATE[28000] [1045] Access denied for user 'zynaeljv_bmisinformation'@'localhost' (using password: YES) in /home/zynaeljv/jfcm.us/classes/conn.php:4
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/classes/conn.php(4): PDO->__construct()
+#1 /home/zynaeljv/jfcm.us/index.php(179): require('/home/zynaeljv/...')
+#2 {main}
+  thrown in /home/zynaeljv/jfcm.us/classes/conn.php on line 4
+[19-Apr-2024 18:34:11 America/New_York] PHP Fatal error:  Uncaught PDOException: SQLSTATE[28000] [1045] Access denied for user 'zynaeljv_bmisinformation'@'localhost' (using password: YES) in /home/zynaeljv/jfcm.us/classes/conn.php:3
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/classes/conn.php(3): PDO->__construct()
+#1 /home/zynaeljv/jfcm.us/index.php(179): require('/home/zynaeljv/...')
+#2 {main}
+  thrown in /home/zynaeljv/jfcm.us/classes/conn.php on line 3
+[19-Apr-2024 18:34:19 America/New_York] PHP Fatal error:  Uncaught PDOException: SQLSTATE[28000] [1045] Access denied for user 'zynaeljv_bmisinformation'@'localhost' (using password: YES) in /home/zynaeljv/jfcm.us/classes/conn.php:3
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/classes/conn.php(3): PDO->__construct()
+#1 /home/zynaeljv/jfcm.us/index.php(179): require('/home/zynaeljv/...')
+#2 {main}
+  thrown in /home/zynaeljv/jfcm.us/classes/conn.php on line 3
+[19-Apr-2024 18:34:27 America/New_York] PHP Fatal error:  Uncaught PDOException: SQLSTATE[28000] [1045] Access denied for user 'zynaeljv_bmisinformation'@'localhost' (using password: YES) in /home/zynaeljv/jfcm.us/classes/conn.php:3
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/classes/conn.php(3): PDO->__construct()
+#1 /home/zynaeljv/jfcm.us/index.php(179): require('/home/zynaeljv/...')
+#2 {main}
+  thrown in /home/zynaeljv/jfcm.us/classes/conn.php on line 3
+[19-Apr-2024 18:35:07 America/New_York] PHP Fatal error:  Uncaught PDOException: SQLSTATE[28000] [1045] Access denied for user 'zynaeljv_bmisinformation'@'localhost' (using password: YES) in /home/zynaeljv/jfcm.us/classes/conn.php:3
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/classes/conn.php(3): PDO->__construct()
+#1 /home/zynaeljv/jfcm.us/index.php(179): require('/home/zynaeljv/...')
+#2 {main}
+  thrown in /home/zynaeljv/jfcm.us/classes/conn.php on line 3
+[19-Apr-2024 22:02:24 America/New_York] PHP Fatal error:  Uncaught PDOException: SQLSTATE[28000] [1045] Access denied for user 'zynaeljv_bmisinformation'@'localhost' (using password: YES) in /home/zynaeljv/jfcm.us/classes/conn.php:3
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/classes/conn.php(3): PDO->__construct()
+#1 /home/zynaeljv/jfcm.us/index.php(179): require('/home/zynaeljv/...')
+#2 {main}
+  thrown in /home/zynaeljv/jfcm.us/classes/conn.php on line 3
+[19-Apr-2024 22:04:10 America/New_York] PHP Fatal error:  Uncaught PDOException: SQLSTATE[28000] [1045] Access denied for user 'zynaeljv_bmisinformation'@'localhost' (using password: YES) in /home/zynaeljv/jfcm.us/classes/conn.php:3
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/classes/conn.php(3): PDO->__construct()
+#1 /home/zynaeljv/jfcm.us/index.php(179): require('/home/zynaeljv/...')
+#2 {main}
+  thrown in /home/zynaeljv/jfcm.us/classes/conn.php on line 3
+[19-Apr-2024 22:04:11 America/New_York] PHP Fatal error:  Uncaught PDOException: SQLSTATE[28000] [1045] Access denied for user 'zynaeljv_bmisinformation'@'localhost' (using password: YES) in /home/zynaeljv/jfcm.us/classes/conn.php:3
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/classes/conn.php(3): PDO->__construct()
+#1 /home/zynaeljv/jfcm.us/index.php(179): require('/home/zynaeljv/...')
+#2 {main}
+  thrown in /home/zynaeljv/jfcm.us/classes/conn.php on line 3
+[19-Apr-2024 22:05:11 America/New_York] PHP Warning:  Undefined variable $conn in /home/zynaeljv/jfcm.us/index.php on line 186
+[19-Apr-2024 22:05:11 America/New_York] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/zynaeljv/jfcm.us/index.php:186
+Stack trace:
+#0 {main}
+  thrown in /home/zynaeljv/jfcm.us/index.php on line 186
+[19-Apr-2024 23:20:23 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/indigency_form.php on line 5
+[19-Apr-2024 23:20:23 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/classes/resident.class.php on line 165
+[19-Apr-2024 23:20:23 America/New_York] PHP Warning:  Trying to access array offset on value of type bool in /home/zynaeljv/jfcm.us/indigency_form.php on line 92
+[20-Apr-2024 09:22:55 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined method ResidentClass::view_female() in /home/zynaeljv/jfcm.us/admn_resident_female.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/zynaeljv/jfcm.us/admn_resident_female.php on line 21
+[20-Apr-2024 23:42:50 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/classes/resident.class.php on line 222
+[20-Apr-2024 23:42:59 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/classes/resident.class.php on line 222
+[20-Apr-2024 23:43:05 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/classes/resident.class.php on line 222
+[20-Apr-2024 23:43:14 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/classes/resident.class.php on line 222
+[21-Apr-2024 00:12:36 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/classes/resident.class.php on line 222
+[21-Apr-2024 00:12:40 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/classes/resident.class.php on line 222
+[21-Apr-2024 00:12:44 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/classes/resident.class.php on line 222
+[21-Apr-2024 05:42:50 America/New_York] PHP Warning:  Undefined array key "userdata" in /home/zynaeljv/jfcm.us/classes/main.class.php on line 148
+[21-Apr-2024 05:42:50 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_business.php on line 366
+[21-Apr-2024 05:42:50 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_business.php on line 366
+[21-Apr-2024 05:42:50 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_business.php on line 370
+[21-Apr-2024 05:42:50 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_business.php on line 371
+[21-Apr-2024 05:42:50 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_business.php on line 515
+[21-Apr-2024 05:42:50 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_business.php on line 523
+[21-Apr-2024 05:42:50 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_business.php on line 535
+[21-Apr-2024 05:42:50 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_business.php on line 560
+[21-Apr-2024 05:42:50 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_business.php on line 569
+[21-Apr-2024 05:42:50 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_business.php on line 576
+[21-Apr-2024 05:42:50 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_business.php on line 579
+[21-Apr-2024 05:42:50 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_business.php on line 628
+[21-Apr-2024 11:08:47 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/classes/resident.class.php on line 222
+[21-Apr-2024 11:08:59 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/classes/resident.class.php on line 222
+[21-Apr-2024 11:15:20 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/rescert_form.php on line 5
+[21-Apr-2024 11:15:20 America/New_York] PHP Warning:  Undefined variable $id_rescert in /home/zynaeljv/jfcm.us/rescert_form.php on line 6
+[21-Apr-2024 11:17:58 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/indigency_form.php on line 5
+[21-Apr-2024 11:17:58 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/classes/resident.class.php on line 243
+[21-Apr-2024 11:17:58 America/New_York] PHP Warning:  Trying to access array offset on value of type bool in /home/zynaeljv/jfcm.us/indigency_form.php on line 92
+[21-Apr-2024 11:34:37 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/classes/resident.class.php on line 222
+[21-Apr-2024 23:50:15 America/New_York] PHP Warning:  Undefined array key "userdata" in /home/zynaeljv/jfcm.us/classes/main.class.php on line 148
+[21-Apr-2024 23:50:15 America/New_York] PHP Warning:  Undefined array key "userdata" in /home/zynaeljv/jfcm.us/classes/main.class.php on line 148
+[21-Apr-2024 23:50:15 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/classes/resident.class.php on line 222
+[21-Apr-2024 23:50:15 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/dashboard_sidebar_start.php on line 306
+[21-Apr-2024 23:50:15 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/dashboard_sidebar_start.php on line 306
+[21-Apr-2024 23:50:15 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/dashboard_sidebar_start.php on line 310
+[23-Apr-2024 11:18:59 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/indigency_form.php on line 5
+[23-Apr-2024 11:18:59 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/classes/resident.class.php on line 243
+[23-Apr-2024 11:18:59 America/New_York] PHP Warning:  Trying to access array offset on value of type bool in /home/zynaeljv/jfcm.us/indigency_form.php on line 92
+[23-Apr-2024 11:19:38 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/indigency_form.php on line 5
+[23-Apr-2024 11:19:38 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/classes/resident.class.php on line 243
+[23-Apr-2024 11:19:38 America/New_York] PHP Warning:  Trying to access array offset on value of type bool in /home/zynaeljv/jfcm.us/indigency_form.php on line 92
+[24-Apr-2024 04:07:16 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/rescert_form.php on line 5
+[24-Apr-2024 04:07:16 America/New_York] PHP Warning:  Undefined variable $id_rescert in /home/zynaeljv/jfcm.us/rescert_form.php on line 6
+[24-Apr-2024 09:48:17 America/New_York] PHP Warning:  Undefined array key "userdata" in /home/zynaeljv/jfcm.us/classes/main.class.php on line 148
+[24-Apr-2024 09:48:17 America/New_York] PHP Warning:  Undefined array key "userdata" in /home/zynaeljv/jfcm.us/classes/main.class.php on line 148
+[24-Apr-2024 09:48:17 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/classes/resident.class.php on line 222
+[24-Apr-2024 09:48:17 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/dashboard_sidebar_start.php on line 306
+[24-Apr-2024 09:48:17 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/dashboard_sidebar_start.php on line 306
+[24-Apr-2024 09:48:17 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/dashboard_sidebar_start.php on line 310
+[24-Apr-2024 09:49:14 America/New_York] PHP Warning:  Undefined array key "userdata" in /home/zynaeljv/jfcm.us/classes/main.class.php on line 148
+[24-Apr-2024 09:49:14 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/indigency_form.php on line 5
+[24-Apr-2024 09:49:14 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/classes/resident.class.php on line 243
+[24-Apr-2024 09:49:14 America/New_York] PHP Warning:  Trying to access array offset on value of type bool in /home/zynaeljv/jfcm.us/indigency_form.php on line 92
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Undefined array key "userdata" in /home/zynaeljv/jfcm.us/classes/main.class.php on line 148
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_certofindigency.php on line 413
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_certofindigency.php on line 413
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_certofindigency.php on line 417
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_certofindigency.php on line 418
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_certofindigency.php on line 565
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_certofindigency.php on line 575
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_certofindigency.php on line 588
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_certofindigency.php on line 605
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_certofindigency.php on line 615
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_certofindigency.php on line 622
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_certofindigency.php on line 627
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_certofindigency.php on line 670
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Undefined array key "userdata" in /home/zynaeljv/jfcm.us/classes/main.class.php on line 148
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_certofindigency.php on line 413
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_certofindigency.php on line 413
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_certofindigency.php on line 417
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_certofindigency.php on line 418
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_certofindigency.php on line 565
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_certofindigency.php on line 575
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_certofindigency.php on line 588
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_certofindigency.php on line 605
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_certofindigency.php on line 615
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_certofindigency.php on line 622
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_certofindigency.php on line 627
+[24-Apr-2024 09:51:19 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/services_certofindigency.php on line 670
+[24-Apr-2024 11:17:52 America/New_York] PHP Warning:  Undefined array key "userdata" in /home/zynaeljv/jfcm.us/classes/main.class.php on line 148
+[24-Apr-2024 11:17:52 America/New_York] PHP Warning:  Undefined array key "userdata" in /home/zynaeljv/jfcm.us/classes/main.class.php on line 148
+[24-Apr-2024 11:17:52 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/classes/resident.class.php on line 222
+[24-Apr-2024 11:17:52 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/dashboard_sidebar_start.php on line 306
+[24-Apr-2024 11:17:52 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/dashboard_sidebar_start.php on line 306
+[24-Apr-2024 11:17:52 America/New_York] PHP Warning:  Trying to access array offset on value of type null in /home/zynaeljv/jfcm.us/dashboard_sidebar_start.php on line 310
+[24-Apr-2024 11:35:36 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/indigency_form.php on line 5
+[24-Apr-2024 11:35:36 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/classes/resident.class.php on line 243
+[24-Apr-2024 11:35:36 America/New_York] PHP Warning:  Trying to access array offset on value of type bool in /home/zynaeljv/jfcm.us/indigency_form.php on line 92
+[24-Apr-2024 11:39:41 America/New_York] PHP Warning:  Undefined variable $id_bspermit in /home/zynaeljv/jfcm.us/businesspermit_form.php on line 6
+[24-Apr-2024 11:41:07 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/rescert_form.php on line 5
+[24-Apr-2024 11:41:07 America/New_York] PHP Warning:  Undefined variable $id_rescert in /home/zynaeljv/jfcm.us/rescert_form.php on line 6
+[24-Apr-2024 11:42:12 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/rescert_form.php on line 5
+[24-Apr-2024 11:42:12 America/New_York] PHP Warning:  Undefined variable $id_rescert in /home/zynaeljv/jfcm.us/rescert_form.php on line 6
+[24-Apr-2024 11:42:25 America/New_York] PHP Warning:  Undefined variable $id_bspermit in /home/zynaeljv/jfcm.us/businesspermit_form.php on line 6
+[24-Apr-2024 11:43:33 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/indigency_form.php on line 5
+[24-Apr-2024 11:43:33 America/New_York] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/classes/resident.class.php on line 243
+[24-Apr-2024 11:43:33 America/New_York] PHP Warning:  Trying to access array offset on value of type bool in /home/zynaeljv/jfcm.us/indigency_form.php on line 92
+[25-Apr-2024 09:08:10 America/New_York] PHP Warning:  Undefined array key "id_bspermit" in /home/zynaeljv/jfcm.us/classes/main.class.php on line 1698
+[25-Apr-2024 09:08:10 America/New_York] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'id_bspermit' cannot be null in /home/zynaeljv/jfcm.us/classes/main.class.php:1717
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/classes/main.class.php(1717): PDOStatement->execute()
+#1 /home/zynaeljv/jfcm.us/services_business.php(6): BMISClass->create_bspermit()
+#2 {main}
+  thrown in /home/zynaeljv/jfcm.us/classes/main.class.php on line 1717
+[25-Apr-2024 09:13:36 America/New_York] PHP Warning:  Undefined array key "id_bspermit" in /home/zynaeljv/jfcm.us/classes/main.class.php on line 1698
+[25-Apr-2024 09:13:36 America/New_York] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'id_bspermit' cannot be null in /home/zynaeljv/jfcm.us/classes/main.class.php:1717
+Stack trace:
+#0 /home/zynaeljv/jfcm.us/classes/main.class.php(1717): PDOStatement->execute()
+#1 /home/zynaeljv/jfcm.us/services_business.php(6): BMISClass->create_bspermit()
+#2 {main}
+  thrown in /home/zynaeljv/jfcm.us/classes/main.class.php on line 1717
+[05-May-2024 11:56:28 UTC] PHP Warning:  Undefined array key "id_resident" in /home/zynaeljv/jfcm.us/rescert_form.php on line 5
+[05-May-2024 11:56:28 UTC] PHP Warning:  Undefined variable $id_rescert in /home/zynaeljv/jfcm.us/rescert_form.php on line 6

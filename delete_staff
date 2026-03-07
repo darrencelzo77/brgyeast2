@@ -1,0 +1,19 @@
+// In staff.class.php or the appropriate class file
+public function delete_staff($id_official) {
+    // Make sure to properly escape or sanitize the $id_official value to prevent SQL injection
+    $id_official = (int) $id_official;  // Cast to integer for safety
+
+    // Example query to delete the official from the database
+    $query = "DELETE FROM officials WHERE id_official = :id_official";
+    $stmt = $this->pdo->prepare($query);  // Assuming you're using PDO for database interactions
+    $stmt->bindParam(':id_official', $id_official, PDO::PARAM_INT);
+
+    // Execute the query
+    if ($stmt->execute()) {
+        // Optionally, return a success message or redirect
+        echo "Staff deleted successfully.";
+    } else {
+        // Handle the error if the query fails
+        echo "Error: Could not delete staff.";
+    }
+}

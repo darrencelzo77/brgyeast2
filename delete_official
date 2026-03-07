@@ -1,0 +1,7 @@
+if (isset($_POST['delete_official'])) {
+    // Get the ID of the official to be deleted
+    $id_official = $_POST['id_user'];  // Make sure this matches the field you are using
+
+    // Call the delete method (ensure it's implemented in your class)
+    $staffbmis->delete_staff($id_official); // Ensure this method is properly defined
+}

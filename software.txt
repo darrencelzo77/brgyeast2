@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --guest --start-fullscreen -app="http://localhost/BrgyEast Modern Site/index.php" --edge-kiosk-type=fullscreen
