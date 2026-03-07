@@ -3,6 +3,7 @@
 require_once('main.class.php');
 
 
+
 class ResidentClass extends BMISClass
 {
     //------------------------------------ RESIDENT CRUD FUNCTIONS ----------------------------------------
@@ -301,7 +302,11 @@ class ResidentClass extends BMISClass
 
                 $control_no = 'CN-' . str_pad($number, 4, '0', STR_PAD_LEFT);
 
+                $qrDir = 'uploads/qr_codes/';
+                if (!is_dir($qrDir)) mkdir($qrDir, 0777, true);
 
+                $qrFile = $qrDir . $control_no . '.png';
+                QRcode::png($control_no, $qrFile, QR_ECLEVEL_L, 4);
                 // ------------------------------
                 // 6. INSERT INTO DATABASE
                 // ------------------------------
@@ -314,9 +319,9 @@ class ResidentClass extends BMISClass
                 domesticated_animals, trees, farmer, vegetables, role, request_status,
                 id1, id2,
                 voter, pwd, indigent, single_parent, pregnancy, malnourished, four_ps,
-                    senior_citizen, out_of_school_youth, lgbtq, valid1, valid2
+                    senior_citizen, out_of_school_youth, lgbtq, valid1, valid2, qr_code
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ");
 
                 $stmt->execute([
@@ -364,6 +369,7 @@ class ResidentClass extends BMISClass
                     $lgbtq,
                     $valid1,
                     $valid2,
+                    $qrFile
                 ]);
 
                 // $message = "Resident account added successfully!\\nControl Number: $control_no";
@@ -693,6 +699,22 @@ class ResidentClass extends BMISClass
                 }
 
                 $control_no = 'CN-' . str_pad($number, 4, '0', STR_PAD_LEFT);
+
+                // -----------------------------
+                // 4. GENERATE QR CODE (phpqrcode)
+                // -----------------------------
+
+                $qrDir = 'uploads/qr_codes/';
+                if (!is_dir($qrDir)) mkdir($qrDir, 0777, true);
+
+                $qrFile = $qrDir . $control_no . '.png';
+                QRcode::png($control_no, $qrFile, QR_ECLEVEL_L, 4);
+
+                // if (file_exists($qrFile)) {
+                //     echo "QR code saved successfully at $qrFile";
+                // } else {
+                //     echo "Failed to save QR code at $qrFile";
+                // }
                 // ------------------------------
                 // 6. INSERT INTO DATABASE
                 // ------------------------------
@@ -704,10 +726,10 @@ class ResidentClass extends BMISClass
                     psa_correction, ntnlId, status, age, sex, 
                     domesticated_animals, trees, farmer, vegetables, role, request_status,
                     id1, id2, voter, pwd, indigent, single_parent, pregnancy, malnourished, four_ps,
-                    senior_citizen, out_of_school_youth, lgbtq, valid1, valid2
+                    senior_citizen, out_of_school_youth, lgbtq, valid1, valid2, qr_code
                 )
                 VALUES (
-                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
                 )
             ");
 
@@ -755,8 +777,10 @@ class ResidentClass extends BMISClass
                     $out_of_school_youth,
                     $lgbtq,
                     $valid1,
-                    $valid2
+                    $valid2,
+                    $qrFile
                 ]);
+
 
                 // echo "<script>
                 //         alert('Resident account added successfully!\\nControl Number: $control_no');

@@ -1,40 +1,46 @@
 <?php
 ini_set('display_errors', 0);
+require __DIR__ . '/../phpqrcode/qrlib.php';
+
 
 class BMISClass
 {
 
     //------------------------------------------ DATABASE CONNECTION ----------------------------------------------------
 
-protected $server = "mysql:host=localhost;dbname=bmis"; 
-protected $user = "root"; 
-protected $pass = ""; 
-protected $options = array(PDO::ATTR_ERRMODE => 
-PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => 
-PDO::FETCH_ASSOC); 
-protected $con; 
+    protected $server = "mysql:host=localhost;dbname=bmis";
+    protected $user = "root";
+    protected $pass = "";
+    protected $options = array(PDO::ATTR_ERRMODE =>
+    PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE =>
+    PDO::FETCH_ASSOC);
+    protected $con;
 
-public function show_404() 
-{ 
-    http_response_code(404); 
-    echo "Page is currently unavailable"; 
-    die; 
-} 
+    public function show_404()
+    {
+        http_response_code(404);
+        echo "Page is currently unavailable";
+        die;
+    }
 
-public function openConn() 
-{ 
-    try {
-         $this->con = new PDO($this->server, $this->user, $this->pass, 
-         $this->options); 
-         return $this->con;
-         } catch (PDOException $e) { 
-            echo "Datbase Connection Error! ", $e->getMessage(); 
-        } 
-    } 
+    public function openConn()
+    {
+        try {
+            $this->con = new PDO(
+                $this->server,
+                $this->user,
+                $this->pass,
+                $this->options
+            );
+            return $this->con;
+        } catch (PDOException $e) {
+            echo "Datbase Connection Error! ", $e->getMessage();
+        }
+    }
     //eto yung nag c close ng connection ng db 
     public function closeConn() // 
-    { 
-        $this->con = null; 
+    {
+        $this->con = null;
     }
 
 
@@ -284,39 +290,39 @@ public function openConn()
     //  ----------------------------------------------- ANNOUNCEMENT CRUD ---------------------------------------------------------
 
 
-public function create_announcement()
-{
-    if (isset($_POST['create_announce'])) {
-        $id_announcement = $_POST['id_announcement'] ?? null;
-        $title = $_POST['title'];
-        $event = $_POST['event'];
-        $start_date = $_POST['start_date'];
-        $addedby = $_POST['addedby'];
+    public function create_announcement()
+    {
+        if (isset($_POST['create_announce'])) {
+            $id_announcement = $_POST['id_announcement'] ?? null;
+            $title = $_POST['title'];
+            $event = $_POST['event'];
+            $start_date = $_POST['start_date'];
+            $addedby = $_POST['addedby'];
 
-        // Handle photo upload
-        $photo_path = null;
-        if (!empty($_FILES['photo']['name'])) {
-            $upload_dir = "uploads/announcement_photos/";
-            if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
+            // Handle photo upload
+            $photo_path = null;
+            if (!empty($_FILES['photo']['name'])) {
+                $upload_dir = "uploads/announcement_photos/";
+                if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
 
-            $ext = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION);
-            $filename = uniqid("ANN_") . "." . $ext;
-            $photo_path = $upload_dir . $filename;
+                $ext = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION);
+                $filename = uniqid("ANN_") . "." . $ext;
+                $photo_path = $upload_dir . $filename;
 
-            move_uploaded_file($_FILES['photo']['tmp_name'], $photo_path);
-        }
+                move_uploaded_file($_FILES['photo']['tmp_name'], $photo_path);
+            }
 
-        $connection = $this->openConn();
-        $stmt = $connection->prepare("
+            $connection = $this->openConn();
+            $stmt = $connection->prepare("
             INSERT INTO tbl_announcement (id_announcement, title, event, start_date, addedby, photo)
             VALUES (?, ?, ?, ?, ?, ?)
         ");
-        $stmt->execute([$id_announcement, $title, $event, $start_date, $addedby, $photo_path]);
+            $stmt->execute([$id_announcement, $title, $event, $start_date, $addedby, $photo_path]);
 
-        echo "<script>alert('Announcement Added');</script>";
-        header('refresh:0');
+            echo "<script>alert('Announcement Added');</script>";
+            header('refresh:0');
+        }
     }
-}
 
 
 
@@ -329,47 +335,47 @@ public function create_announcement()
         return $view;
     }
 
-public function update_announcement()
-{
-    if (isset($_POST['update_announce'])) {
-        $id_announcement = $_POST['id_announcement'];
-        $title = $_POST['title'];
-        $event = $_POST['event'];
-        $start_date = $_POST['start_date'];
-        $addedby = $_POST['addedby'];
+    public function update_announcement()
+    {
+        if (isset($_POST['update_announce'])) {
+            $id_announcement = $_POST['id_announcement'];
+            $title = $_POST['title'];
+            $event = $_POST['event'];
+            $start_date = $_POST['start_date'];
+            $addedby = $_POST['addedby'];
 
-        $connection = $this->openConn();
+            $connection = $this->openConn();
 
-        // Handle photo upload
-        $photo_path = null;
-        if (!empty($_FILES['photo']['name'])) {
-            $upload_dir = "uploads/announcement_photos/";
-            if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
+            // Handle photo upload
+            $photo_path = null;
+            if (!empty($_FILES['photo']['name'])) {
+                $upload_dir = "uploads/announcement_photos/";
+                if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
 
-            $ext = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION);
-            $filename = uniqid("ANN_") . "." . $ext;
-            $photo_path = $upload_dir . $filename;
+                $ext = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION);
+                $filename = uniqid("ANN_") . "." . $ext;
+                $photo_path = $upload_dir . $filename;
 
-            move_uploaded_file($_FILES['photo']['tmp_name'], $photo_path);
+                move_uploaded_file($_FILES['photo']['tmp_name'], $photo_path);
 
-            // Update photo in DB
-            $stmt = $connection->prepare("UPDATE tbl_announcement 
+                // Update photo in DB
+                $stmt = $connection->prepare("UPDATE tbl_announcement 
                                           SET title = ?, event = ?, start_date = ?, addedby = ?, photo = ?
                                           WHERE id_announcement = ?");
-            $stmt->execute([$title, $event, $start_date, $addedby, $photo_path, $id_announcement]);
-        } else {
-            // No new photo uploaded, keep old
-            $stmt = $connection->prepare("UPDATE tbl_announcement 
+                $stmt->execute([$title, $event, $start_date, $addedby, $photo_path, $id_announcement]);
+            } else {
+                // No new photo uploaded, keep old
+                $stmt = $connection->prepare("UPDATE tbl_announcement 
                                           SET title = ?, event = ?, start_date = ?, addedby = ?
                                           WHERE id_announcement = ?");
-            $stmt->execute([$title, $event, $start_date, $addedby, $id_announcement]);
-        }
+                $stmt->execute([$title, $event, $start_date, $addedby, $id_announcement]);
+            }
 
-        echo "<script>alert('Announcement Updated');</script>";
-        header("Refresh:0");
-        exit;
+            echo "<script>alert('Announcement Updated');</script>";
+            header("Refresh:0");
+            exit;
+        }
     }
-}
 
 
 
@@ -1918,7 +1924,6 @@ public function update_announcement()
 
     public function create_bspermit()
     {
-
         if (isset($_POST['create_bspermit'])) {
             $id_bspermit = $_POST['id_bspermit'];
             $id_resident = $_POST['id_resident'];
@@ -1933,25 +1938,99 @@ public function update_announcement()
             $bsindustry = $_POST['bsindustry'];
             $aoe = $_POST['aoe'];
 
-
             $connection = $this->openConn();
-            $stmt = $connection->prepare("INSERT INTO tbl_bspermit (`id_bspermit`, `id_resident`, `lname`, `fname`, `mi`,
-             `bsname`, `houseno`, `street`,`brgy`, `municipal`, `bsindustry`, `aoe`)
-            VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-            $stmt->execute([$id_bspermit, $id_resident, $lname, $fname, $mi,  $bsname, $houseno,  $street, $brgy, $municipal, $bsindustry, $aoe]);
+            // Generate control number from tbl_bspermit
+            $stmtCN = $connection->prepare("
+            SELECT control_no 
+            FROM tbl_bspermit 
+            ORDER BY id_bspermit DESC 
+            LIMIT 1
+        ");
+            $stmtCN->execute();
+            $lastCN = $stmtCN->fetch(PDO::FETCH_ASSOC);
 
-            $message2 = "Application Applied!";
-            echo "<script type='text/javascript'>alert('$message2');</script>";
-            header("refresh: 0");
+            if ($lastCN && !empty($lastCN['control_no'])) {
+                $number = (int) str_replace('TR-', '', $lastCN['control_no']);
+                $number++;
+            } else {
+                $number = 1;
+            }
+
+            $control_no = 'TR-' . str_pad($number, 4, '0', STR_PAD_LEFT);
+
+            // Generate QR code
+            $qrDir =  'uploads/qr_codes/';
+            if (!is_dir($qrDir)) mkdir($qrDir, 0777, true);
+            $qrFile = $qrDir . $control_no . '.png';
+            QRcode::png($control_no, $qrFile, QR_ECLEVEL_L, 4);
+
+            // Insert into database
+            $stmt = $connection->prepare("
+            INSERT INTO tbl_bspermit (
+                id_bspermit, id_resident, lname, fname, mi,
+                bsname, houseno, street, brgy, municipal, bsindustry, aoe, qr_code, control_no
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+        ");
+
+            $stmt->execute([
+                $id_bspermit,
+                $id_resident,
+                $lname,
+                $fname,
+                $mi,
+                $bsname,
+                $houseno,
+                $street,
+                $brgy,
+                $municipal,
+                $bsindustry,
+                $aoe,
+                $qrFile,
+                $control_no
+            ]);
+
+            $lastId = $connection->lastInsertId();
+
+            echo "<script>
+            alert('Business permit created successfully!\\nControl No: $control_no');
+            window.open('receipt_brgy_permit.php?id=$lastId', '_blank');
+        </script>";
         }
     }
+    // public function create_bspermit_walkin()
+    // {
 
+    //     if (isset($_POST['create_bspermit_walkin'])) {
+    //         $id_bspermit = $_POST['id_bspermit'];
+    //         $lname = $_POST['lname'];
+    //         $fname = $_POST['fname'];
+    //         $mi = $_POST['mi'];
+    //         $bsname = $_POST['bsname'];
+    //         $houseno = $_POST['houseno'];
+    //         $street = $_POST['street'];
+    //         $brgy = $_POST['brgy'];
+    //         $municipal = $_POST['municipal'];
+    //         $bsindustry = $_POST['bsindustry'];
+    //         $aoe = $_POST['aoe'];
+
+
+    //         $connection = $this->openConn();
+    //         $stmt = $connection->prepare("INSERT INTO tbl_bspermit (`lname`, `fname`, `mi`,
+    //          `bsname`, `houseno`, `street`,`brgy`, `municipal`, `bsindustry`, `aoe`)
+    //         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+    //         $stmt->execute([$lname, $fname, $mi,  $bsname, $houseno,  $street, $brgy, $municipal, $bsindustry, $aoe]);
+
+    //         $message2 = "Application Applied!";
+    //         echo "<script type='text/javascript'>alert('$message2');</script>";
+    //         header("refresh: 0");
+    //     }
+    // }
     public function create_bspermit_walkin()
     {
-
         if (isset($_POST['create_bspermit_walkin'])) {
-            $id_bspermit = $_POST['id_bspermit'];
+            $id_bspermit = $_POST['id_bspermit'] ?? null;
             $lname = $_POST['lname'];
             $fname = $_POST['fname'];
             $mi = $_POST['mi'];
@@ -1963,17 +2042,70 @@ public function update_announcement()
             $bsindustry = $_POST['bsindustry'];
             $aoe = $_POST['aoe'];
 
-
             $connection = $this->openConn();
-            $stmt = $connection->prepare("INSERT INTO tbl_bspermit (`lname`, `fname`, `mi`,
-             `bsname`, `houseno`, `street`,`brgy`, `municipal`, `bsindustry`, `aoe`)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-            $stmt->execute([$lname, $fname, $mi,  $bsname, $houseno,  $street, $brgy, $municipal, $bsindustry, $aoe]);
+            // -----------------------------
+            // Generate control number from tbl_bspermit
+            // -----------------------------
+            $stmtCN = $connection->prepare("
+            SELECT control_no 
+            FROM tbl_bspermit 
+            ORDER BY id_bspermit DESC 
+            LIMIT 1
+        ");
+            $stmtCN->execute();
+            $lastCN = $stmtCN->fetch(PDO::FETCH_ASSOC);
 
-            $message2 = "Application Applied!";
-            echo "<script type='text/javascript'>alert('$message2');</script>";
-            header("refresh: 0");
+            if ($lastCN && !empty($lastCN['control_no'])) {
+                $number = (int) str_replace('TR-', '', $lastCN['control_no']);
+                $number++;
+            } else {
+                $number = 1;
+            }
+
+            $control_no = 'TR-' . str_pad($number, 4, '0', STR_PAD_LEFT);
+
+            // -----------------------------
+            // Generate QR code
+            // -----------------------------
+            $qrDir = __DIR__ . '/../uploads/qr_codes/';
+            if (!is_dir($qrDir)) mkdir($qrDir, 0777, true);
+
+            $qrFile = $qrDir . $control_no . '.png';
+            QRcode::png($control_no, $qrFile, QR_ECLEVEL_L, 4);
+
+            // -----------------------------
+            // Insert into database
+            // -----------------------------
+            $stmt = $connection->prepare("
+            INSERT INTO tbl_bspermit (
+                id_bspermit, lname, fname, mi,
+                bsname, houseno, street, brgy, municipal, bsindustry, aoe, qr_code, control_no
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ");
+
+            $stmt->execute([
+                $id_bspermit,
+                $lname,
+                $fname,
+                $mi,
+                $bsname,
+                $houseno,
+                $street,
+                $brgy,
+                $municipal,
+                $bsindustry,
+                $aoe,
+                $qrFile,
+                $control_no
+            ]);
+
+            $lastId = $connection->lastInsertId();
+
+            echo "<script>
+            alert('Business permit (walk-in) created successfully!\\nControl No: $control_no');
+            window.open('receipt_brgy_permit.php?id=$lastId', '_blank');
+        </script>";
         }
     }
 

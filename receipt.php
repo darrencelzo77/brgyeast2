@@ -159,16 +159,28 @@ if (!$resident) {
 
             <div class="divider"></div>
 
+            <!-- Add this inside .receipt-body, for example below the Control No row -->
+            <div class="row" style="justify-content: center; margin-top: 20px;">
+                <!-- <div class="label" style="width: auto;">QR Code</div> -->
+                <div class="value" style="width: auto; text-align: center;">
+                    <?php if (!empty($resident['qr_code']) && file_exists($resident['qr_code'])): ?>
+                        <img src="<?= htmlspecialchars($resident['qr_code']) ?>" alt="QR Code" style="width:150px; height:150px;">
+                    <?php else: ?>
+                        <span style="color:red;">QR code not available</span>
+                    <?php endif; ?>
+                </div>
+            </div>
+
             <div class="footer">
                 This document serves as an official proof of barangay registration.<br>
-              
+
                 <br><br>
                 <strong style="color:#07325f;">Barangay Office</strong>
             </div>
 
 
             <br><br>
-            <h4><i>  <b>Please take a screenshot of this or save it as a PDF on your mobile device.</b></i></h4>
+            <h4><i> <b>Please take a screenshot of this or save it as a PDF on your mobile device.</b></i></h4>
         </div>
     </div>
 

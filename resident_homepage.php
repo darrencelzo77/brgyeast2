@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 include('classes/resident.class.php');
 require('classes/conn.php');
-
+// require  '/../phpqrcode/qrlib.php';
 $userdetails = $bmis->get_userdata();
 
 $dt = new DateTime("now", new DateTimeZone('Asia/Manila'));
