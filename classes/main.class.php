@@ -1473,13 +1473,13 @@ class BMISClass
             $lastCN = $stmtCN->fetch(PDO::FETCH_ASSOC);
 
             if ($lastCN && !empty($lastCN['control_no'])) {
-                $number = (int) str_replace('TN-', '', $lastCN['control_no']);
+                $number = (int) str_replace('TRRESIDENCY-', '', $lastCN['control_no']);
                 $number++;
             } else {
                 $number = 1;
             }
 
-            $control_no = 'TR-' . str_pad($number, 4, '0', STR_PAD_LEFT);
+            $control_no = 'TRRESIDENCY-' . str_pad($number, 4, '0', STR_PAD_LEFT);
 
             // -----------------------------
             // 4. GENERATE QR CODE (phpqrcode)
@@ -1546,13 +1546,13 @@ class BMISClass
             $lastCN = $stmtCN->fetch(PDO::FETCH_ASSOC);
 
             if ($lastCN && !empty($lastCN['control_no'])) {
-                $number = (int) str_replace('TR-', '', $lastCN['control_no']);
+                $number = (int) str_replace('TRRESIDENCY-', '', $lastCN['control_no']);
                 $number++;
             } else {
                 $number = 1;
             }
 
-            $control_no = 'TR-' . str_pad($number, 4, '0', STR_PAD_LEFT);
+            $control_no = 'TRRESIDENCY-' . str_pad($number, 4, '0', STR_PAD_LEFT);
 
             // -----------------------------
             // 4. GENERATE QR CODE (phpqrcode)
@@ -1714,13 +1714,13 @@ class BMISClass
             $lastCN = $stmtCN->fetch(PDO::FETCH_ASSOC);
 
             if ($lastCN && !empty($lastCN['control_no'])) {
-                $number = (int) str_replace('TR-', '', $lastCN['control_no']);
+                $number = (int) str_replace('TRINDIGENCY-', '', $lastCN['control_no']);
                 $number++;
             } else {
                 $number = 1;
             }
 
-            $control_no = 'TR-' . str_pad($number, 4, '0', STR_PAD_LEFT);
+            $control_no = 'TRINDIGENCY-' . str_pad($number, 4, '0', STR_PAD_LEFT);
 
             // -----------------------------
             // 4. GENERATE QR CODE (phpqrcode)
@@ -1903,13 +1903,13 @@ class BMISClass
             $lastCN = $stmtCN->fetch(PDO::FETCH_ASSOC);
 
             if ($lastCN && !empty($lastCN['control_no'])) {
-                $number = (int) str_replace('TR-', '', $lastCN['control_no']);
+                $number = (int) str_replace('TRBRGYCLEARANCE-', '', $lastCN['control_no']);
                 $number++;
             } else {
                 $number = 1;
             }
 
-            $control_no = 'TR-' . str_pad($number, 4, '0', STR_PAD_LEFT);
+            $control_no = 'TRBRGYCLEARANCE-' . str_pad($number, 4, '0', STR_PAD_LEFT);
 
             // -----------------------------
             // 4. GENERATE QR CODE (phpqrcode)
@@ -2202,13 +2202,13 @@ class BMISClass
             $lastCN = $stmtCN->fetch(PDO::FETCH_ASSOC);
 
             if ($lastCN && !empty($lastCN['control_no'])) {
-                $number = (int) str_replace('TR-', '', $lastCN['control_no']);
+                $number = (int) str_replace('TRBSPERMIT-', '', $lastCN['control_no']);
                 $number++;
             } else {
                 $number = 1;
             }
 
-            $control_no = 'TR-' . str_pad($number, 4, '0', STR_PAD_LEFT);
+            $control_no = 'TRBSPERMIT-' . str_pad($number, 4, '0', STR_PAD_LEFT);
 
             // Generate QR code
             $qrDir =  'uploads/qr_codes/';
@@ -2308,13 +2308,13 @@ class BMISClass
             $lastCN = $stmtCN->fetch(PDO::FETCH_ASSOC);
 
             if ($lastCN && !empty($lastCN['control_no'])) {
-                $number = (int) str_replace('TR-', '', $lastCN['control_no']);
+                $number = (int) str_replace('TRBSPERMIT-', '', $lastCN['control_no']);
                 $number++;
             } else {
                 $number = 1;
             }
 
-            $control_no = 'TR-' . str_pad($number, 4, '0', STR_PAD_LEFT);
+            $control_no = 'TRBSPERMIT-' . str_pad($number, 4, '0', STR_PAD_LEFT);
 
             // -----------------------------
             // Generate QR code
@@ -2574,15 +2574,51 @@ class BMISClass
 
             $connection = $this->openConn();
 
-            
-            $stmt = $connection->prepare("INSERT INTO tbl_blotter (`id_blotter`, `id_resident`, `lname`, `fname`, `mi`,
-            `houseno`, `street`,`brgy`, `municipal`, `contact`, `narrative`)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-            $stmt->execute([$id_blotter, $id_resident, $lname, $fname, $mi, $houseno,  $street, $brgy, $municipal, $contact, $narrative]);
+            // -----------------------------
+            // Generate control number from tbl_bspermit
+            // -----------------------------
+            $stmtCN = $connection->prepare("
+            SELECT control_no 
+            FROM tbl_blotter 
+            ORDER BY id_blotter DESC 
+            LIMIT 1
+        ");
+            $stmtCN->execute();
+            $lastCN = $stmtCN->fetch(PDO::FETCH_ASSOC);
+
+            if ($lastCN && !empty($lastCN['control_no'])) {
+                $number = (int) str_replace('TRBLOTTER-', '', $lastCN['control_no']);
+                $number++;
+            } else {
+                $number = 1;
+            }
+
+            $control_no = 'TRBLOTTER-' . str_pad($number, 4, '0', STR_PAD_LEFT);
+
+            // -----------------------------
+            // Generate QR code
+            // -----------------------------
+            $qrDir =  'uploads/qr_codes/';
+            if (!is_dir($qrDir)) mkdir($qrDir, 0777, true);
+
+            $qrFile = $qrDir . $control_no . '.png';
+            QRcode::png($control_no, $qrFile, QR_ECLEVEL_L, 4);
+
+
+            $stmt = $connection->prepare("INSERT INTO tbl_blotter (`id_blotter`, `id_resident`, `lname`, `fname`, `mi`,
+            `houseno`, `street`,`brgy`, `municipal`, `contact`, `narrative`, `control_no`, `qr_code`)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+            $stmt->execute([$id_blotter, $id_resident, $lname, $fname, $mi, $houseno,  $street, $brgy, $municipal, $contact, $narrative,  $control_no, $qrFile]);
 
             $message2 = "Application Applied!";
-            echo "<script type='text/javascript'>alert('$message2');</script>";
+            $lastId = $connection->lastInsertId();
+
+            echo "<script>
+            alert('Successfully Added!\\nTransaction No: $control_no');
+              window.open('receipt_generic.php?limiter=blotter&id=$lastId', '_blank');
+        </script>";
             header("refresh: 0");
         }
     }
@@ -2659,12 +2695,43 @@ class BMISClass
             try {
                 $connection = $this->openConn();
 
+
+                // -----------------------------
+                // Generate control number from tbl_bspermit
+                // -----------------------------
+                $stmtCN = $connection->prepare("
+            SELECT control_no 
+            FROM tbl_blotter 
+            ORDER BY id_blotter DESC 
+            LIMIT 1
+        ");
+                $stmtCN->execute();
+                $lastCN = $stmtCN->fetch(PDO::FETCH_ASSOC);
+
+                if ($lastCN && !empty($lastCN['control_no'])) {
+                    $number = (int) str_replace('TRBLOTTER-', '', $lastCN['control_no']);
+                    $number++;
+                } else {
+                    $number = 1;
+                }
+
+                $control_no = 'TRBLOTTER-' . str_pad($number, 4, '0', STR_PAD_LEFT);
+
+                // -----------------------------
+                // Generate QR code
+                // -----------------------------
+                $qrDir =  'uploads/qr_codes/';
+                if (!is_dir($qrDir)) mkdir($qrDir, 0777, true);
+
+                $qrFile = $qrDir . $control_no . '.png';
+                QRcode::png($control_no, $qrFile, QR_ECLEVEL_L, 4);
+
                 $stmt = $connection->prepare("
                 INSERT INTO tbl_blotter 
                 (`case_no`, `lname`, `fname`, `mi`, `houseno`, `street`, `brgy`,
                  `municipal`, `blot_photo`, `contact`, `narrative`, `timeapplied`,
-                 `case_name`, `case_respondent`)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                 `case_name`, `case_respondent`, `control_no`, `qr_code`)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ");
 
                 $stmt->execute([
@@ -2681,13 +2748,21 @@ class BMISClass
                     $narrative,
                     $timeapplied,
                     $case_name,
-                    $case_respondent
+                    $case_respondent,
+                    $control_no,
+                    $qrFile
                 ]);
 
+                //     echo "<script>
+                //     alert('Blotter Report #" . $case_no . " Submitted Successfully!');
+                //     window.location.href = 'admn_blotterreport.php';
+                // </script>";
+                $lastId = $connection->lastInsertId();
+
                 echo "<script>
-                alert('Blotter Report #" . $case_no . " Submitted Successfully!');
-                window.location.href = 'admn_blotterreport.php';
-            </script>";
+            alert('Successfully Added!\\nTransaction No: $control_no');
+              window.open('receipt_generic.php?limiter=blotter&id=$lastId', '_blank');
+        </script>";
             } catch (PDOException $e) {
                 error_log("Blotter creation error: " . $e->getMessage());
                 echo "<script>

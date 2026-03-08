@@ -19,7 +19,7 @@ if ($limiter == "bspermit") {
 } else if ($limiter == "clearance") {
     $title_ = "Barangay Clearance Receipt";
     $stmt = $conn->prepare("SELECT * FROM tbl_clearance WHERE id_clearance = ?");
-} else if ($limiter == "peace") {
+} else if ($limiter == "blotter") {
     $title_ = "Blotter Receipt";
     $stmt = $conn->prepare("SELECT * FROM tbl_blotter WHERE id_blotter = ?");
 }
