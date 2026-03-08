@@ -226,7 +226,7 @@ include('dashboard_sidebar_start.php');
                         </div>
 
                         <div class="modal-footer" style="justify-content: flex-start;">
-                            <button type="submit" name="create_blotter_walkin" class="btn btn-primary">
+                            <button type="submit" name="create_blotter_walkin" class="btn btn-secondary">
                                 <i class="fas fa-paper-plane"></i> Submit Report
                             </button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -203,7 +203,7 @@ include('dashboard_sidebar_start.php');
                 <div class="modal-footer" style="justify-content: flex-start;">
                     <div class="paa">
                         <input name="id_resident" type="hidden" class="form-control" value="<?= $userdetails['id_resident'] ?>">
-                        <button name="create_bspermit_walkin" type="submit" class="btn btn-primary">Submit Request</button>
+                        <button name="create_bspermit_walkin" type="submit" class="btn btn-secondary">Submit Request</button>
                         <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
 
                     </div>
