@@ -27,7 +27,7 @@ if (isset($_POST['search_bspermit'])) {
             <?php
             $stmnt = $conn->prepare("SELECT * FROM `tbl_bspermit` WHERE `lname` LIKE '%$keyword%' or  `mi` LIKE '%$keyword%' or  `fname` LIKE '%$keyword%' 
             or `bsname` LIKE '%$keyword%' or  `id_resident` LIKE '%$keyword%' or  `houseno` LIKE '%$keyword%' or  `street` LIKE '%$keyword%'
-            or `brgy` LIKE '%$keyword%' or `municipal` LIKE '%$keyword%' or `bsindustry` LIKE '%$keyword%' or `age` LIKE '%$keyword%' ");
+            or `brgy` LIKE '%$keyword%' or `municipal` LIKE '%$keyword%' or `bsindustry` LIKE '%$keyword%' or `age` LIKE '%$keyword%'  ORDER BY id_clearance DESC  ");
             $stmnt->execute();
 
             while ($view = $stmnt->fetch()) {
@@ -59,8 +59,9 @@ if (isset($_POST['search_bspermit'])) {
 <?php
 } else {
 ?>
-    <div class="table-responsive">
-        <table class="table table-hover text-center table-bordered table-responsive">
+    <?php include('including_style.php'); ?>
+    <div class="table-responsive  table-scroll">
+        <table class="table table-hover text-center table-bordered">
             <thead class="alert-info">
                 <tr>
                     <th> Resident ID </th>
@@ -90,17 +91,17 @@ if (isset($_POST['search_bspermit'])) {
                             <td> <?= $view['age']; ?> </td>
                             <td>
                                 <form action="" method="post">
-                                  
 
-                                
-  <a class="btn btn-success"
-   style="width: 80px; font-size: 15px; border-radius:5px; margin-bottom: 2px;"
-   href="brgyclearance_form.php?id_clearance=<?= $view['id_clearance']; ?>"
-   onclick="openPopup(this.href); return false;">
-   Generate
-</a>
-                                
-                                
+
+
+                                    <a class="btn btn-success"
+                                        style="width: 80px; font-size: 15px; border-radius:5px; margin-bottom: 2px;"
+                                        href="brgyclearance_form.php?id_clearance=<?= $view['id_clearance']; ?>"
+                                        onclick="openPopup(this.href); return false;">
+                                        Generate
+                                    </a>
+
+
 
 
 
@@ -132,14 +133,14 @@ if (isset($_POST['search_bspermit'])) {
     <script src="bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
 
     <script>
-function openPopup(url) {
-    window.open(
-        url,
-        'generateWindow',
-        'width=900,height=700,scrollbars=yes,resizable=yes'
-    );
-}
-</script>
+        function openPopup(url) {
+            window.open(
+                url,
+                'generateWindow',
+                'width=900,height=700,scrollbars=yes,resizable=yes'
+            );
+        }
+    </script>
 <?php
 }
 $con = null;

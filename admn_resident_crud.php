@@ -26,7 +26,7 @@
     include('dashboard_sidebar_start.php');
 
     ?>
-<?php include('flexbox.php'); ?>
+    <?php //include('flexbox.php'); ?>
     <!-- Page Wrapper -->
 
     <!-- End of Sidebar -->

@@ -1585,7 +1585,7 @@ class BMISClass
     public function view_certofres()
     {
         $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * from tbl_rescert");
+        $stmt = $connection->prepare("SELECT * from tbl_rescert ORDER BY id_rescert DESC ");
         $stmt->execute();
         $view = $stmt->fetchAll();
         return $view;
@@ -1816,7 +1816,7 @@ class BMISClass
     public function view_certofindigency()
     {
         $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * from tbl_indigency");
+        $stmt = $connection->prepare("SELECT * from tbl_indigency order by id_indigency DESC ");
         $stmt->execute();
         $view = $stmt->fetchAll();
         return $view;
@@ -2102,7 +2102,7 @@ class BMISClass
     public function view_clearance()
     {
         $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * from tbl_clearance");
+        $stmt = $connection->prepare("SELECT * from tbl_clearance ORDER BY id_clearance DESC ");
         $stmt->execute();
         $view = $stmt->fetchAll();
         return $view;
@@ -2401,7 +2401,7 @@ class BMISClass
     public function view_bspermit()
     {
         $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * from tbl_bspermit");
+        $stmt = $connection->prepare("SELECT * from tbl_bspermit ORDER BY id_bspermit DESC ");
         $stmt->execute();
         $view = $stmt->fetchAll();
         return $view;
@@ -2795,7 +2795,7 @@ class BMISClass
     public function view_blotter()
     {
         $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * from tbl_blotter");
+        $stmt = $connection->prepare("SELECT * from tbl_blotter ORDER BY id_blotter DESC ");
         $stmt->execute();
         $view = $stmt->fetchAll();
         return $view;

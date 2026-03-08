@@ -22,7 +22,7 @@ if (isset($_POST['search_certofres'])) {
 
         <tbody>
             <?php
-            $stmnt = $conn->prepare("SELECT * FROM `tbl_resident` WHERE `lname` LIKE '%$keyword%' OR `fname` LIKE '%$keyword%' OR `email` LIKE '%$keyword%' OR `mi` LIKE '%$keyword%' OR `age` LIKE '%$keyword%' OR `houseno` LIKE '%$keyword%' OR `street` LIKE '%$keyword%' OR `nationality` LIKE '%$keyword%'");
+            $stmnt = $conn->prepare("SELECT * FROM `tbl_resident` WHERE `lname` LIKE '%$keyword%' OR `fname` LIKE '%$keyword%' OR `email` LIKE '%$keyword%' OR `mi` LIKE '%$keyword%' OR `age` LIKE '%$keyword%' OR `houseno` LIKE '%$keyword%' OR `street` LIKE '%$keyword%' OR `nationality` LIKE '%$keyword%' order by id_resident DESC ");
             $stmnt->execute();
 
             while ($search = $stmnt->fetch()) {
@@ -297,8 +297,9 @@ if (isset($_POST['search_certofres'])) {
 <?php
 } else {
 ?>
-    <div class="table-responsive">
-        <table class="table table-hover text-center table-bordered table-responsive">
+    <?php include('including_style.php'); ?>
+    <div class="table-responsive  table-scroll">
+        <table class="table table-hover text-center table-bordered">
             <thead class="alert-info">
                 <tr>
                     <th> Actions</th>

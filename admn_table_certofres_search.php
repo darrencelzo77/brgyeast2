@@ -27,7 +27,7 @@ if (isset($_POST['search_certofres'])) {
             <?php
             $stmnt = $conn->prepare("SELECT * FROM `tbl_rescert` WHERE `lname` LIKE '%$keyword%' or  `mi` LIKE '%$keyword%' or  `fname` LIKE '%$keyword%' 
             or `age` LIKE '%$keyword%' or  `id_resident` LIKE '%$keyword%' or  `nationality` LIKE '%$keyword%' or  `houseno` LIKE '%$keyword%'
-            or `street` LIKE '%$keyword%' or `brgy` LIKE '%$keyword%' or `municipal` LIKE '%$keyword%' or `date` LIKE '%$keyword%' or `purpose` LIKE '%$keyword%'");
+            or `street` LIKE '%$keyword%' or `brgy` LIKE '%$keyword%' or `municipal` LIKE '%$keyword%' or `date` LIKE '%$keyword%' or `purpose` LIKE '%$keyword%' ORDER BY id_rescert DESC ");
             $stmnt->execute();
 
             while ($view = $stmnt->fetch()) {
@@ -61,8 +61,9 @@ if (isset($_POST['search_certofres'])) {
 <?php
 } else {
 ?>
-    <div class="table-responsive">
-        <table class="table table-hover text-center table-bordered table-responsive">
+    <?php include('including_style.php'); ?>
+    <div class="table-responsive  table-scroll">
+        <table class="table table-hover text-center table-bordered">
             <thead class="alert-info">
                 <tr>
 
@@ -95,13 +96,13 @@ if (isset($_POST['search_certofres'])) {
                             <td> <?= $view['purpose']; ?> </td>
                             <td>
                                 <form action="" method="post">
-                                   <a class="btn btn-success"
-   style="width: 80px; font-size: 15px; border-radius:5px; margin-bottom: 2px;"
-   href="rescert_form.php?id_rescert=<?= $view['id_rescert']; ?>"
-   onclick="openPopup(this.href); return false;">
-   Generate
-</a>
- <input type="hidden" name="id_rescert" value="<?= $view['id_rescert']; ?>">
+                                    <a class="btn btn-success"
+                                        style="width: 80px; font-size: 15px; border-radius:5px; margin-bottom: 2px;"
+                                        href="rescert_form.php?id_rescert=<?= $view['id_rescert']; ?>"
+                                        onclick="openPopup(this.href); return false;">
+                                        Generate
+                                    </a>
+                                    <input type="hidden" name="id_rescert" value="<?= $view['id_rescert']; ?>">
                                     <button class="btn btn-danger" type="submit" style="width: 80px; font-size: 15px; border-radius:5px;" name="delete_certofres"> Delete </button>
                                 </form>
                             </td>
@@ -117,14 +118,14 @@ if (isset($_POST['search_certofres'])) {
         </table>
     </div>
     <script>
-function openPopup(url) {
-    window.open(
-        url,
-        'generateWindow',
-        'width=900,height=700,scrollbars=yes,resizable=yes'
-    );
-}
-</script>
+        function openPopup(url) {
+            window.open(
+                url,
+                'generateWindow',
+                'width=900,height=700,scrollbars=yes,resizable=yes'
+            );
+        }
+    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js" integrity="sha512-/HL24m2nmyI2+ccX+dSHphAHqLw60Oj5sK8jf59VWtFWZi9vx7jzoxbZmcBeeTeCUc7z1mTs3LfyXGuBU32t+w==" crossorigin="anonymous"></script>

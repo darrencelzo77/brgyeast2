@@ -26,7 +26,7 @@ if (isset($_POST['search_certofindigency'])) {
 
             $stmnt = $conn->prepare("SELECT * FROM `tbl_rescert` WHERE `lname` LIKE '%$keyword%' or  `mi` LIKE '%$keyword%' or  `fname` LIKE '%$keyword%' 
                 or  `id_resident` LIKE '%$keyword%' or  `nationality` LIKE '%$keyword%' or  `houseno` LIKE '%$keyword%'
-            or `street` LIKE '%$keyword%' or `brgy` LIKE '%$keyword%' or `municipal` LIKE '%$keyword%' or `date` LIKE '%$keyword%' or `purpose` LIKE '%$keyword%'");
+            or `street` LIKE '%$keyword%' or `brgy` LIKE '%$keyword%' or `municipal` LIKE '%$keyword%' or `date` LIKE '%$keyword%' or `purpose` LIKE '%$keyword%' order by id_rescert DESC");
             $stmnt->execute();
 
             while ($view = $stmnt->fetch()) {
@@ -58,8 +58,9 @@ if (isset($_POST['search_certofindigency'])) {
 <?php
 } else {
 ?>
-    <div class="table-responsive">
-        <table class="table table-hover text-center table-bordered table-responsive">
+    <?php include('including_style.php'); ?>
+    <div class="table-responsive  table-scroll">
+        <table class="table table-hover text-center table-bordered">
             <thead class="alert-info">
                 <tr>
                     <th style="width: 10%;"> Resident ID </th>
@@ -90,17 +91,17 @@ if (isset($_POST['search_certofindigency'])) {
                             <td> <?= $view['date']; ?> </td>
                             <td>
                                 <form action="" method="post">
-                                 
-                                
-                                
-  <a class="btn btn-success"
-   style="width: 80px; font-size: 15px; border-radius:5px; margin-bottom: 2px;"
-   href="indigency_form.php?id_indigency=<?= $view['id_indigency']; ?>"
-   onclick="openPopup(this.href); return false;">
-   Generate
-</a>
-                                
-                                
+
+
+
+                                    <a class="btn btn-success"
+                                        style="width: 80px; font-size: 15px; border-radius:5px; margin-bottom: 2px;"
+                                        href="indigency_form.php?id_indigency=<?= $view['id_indigency']; ?>"
+                                        onclick="openPopup(this.href); return false;">
+                                        Generate
+                                    </a>
+
+
 
                                     <input type="hidden" name="id_indigency" value="<?= $view['id_indigency']; ?>">
                                     <button class="btn btn-danger" style="width: 80px; font-size: 15px; border-radius:5px;" type="submit" name="delete_certofindigency"> Delete </button>
@@ -123,12 +124,12 @@ if (isset($_POST['search_certofindigency'])) {
 $con = null;
 ?>
 
-    <script>
-function openPopup(url) {
-    window.open(
-        url,
-        'generateWindow',
-        'width=900,height=700,scrollbars=yes,resizable=yes'
-    );
-}
+<script>
+    function openPopup(url) {
+        window.open(
+            url,
+            'generateWindow',
+            'width=900,height=700,scrollbars=yes,resizable=yes'
+        );
+    }
 </script>

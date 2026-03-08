@@ -922,7 +922,7 @@ class ResidentClass extends BMISClass
     public function view_resident()
     {
         $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * from tbl_resident WHERE request_status = 'approved'");
+        $stmt = $connection->prepare("SELECT * from tbl_resident WHERE request_status = 'approved' ORDER BY id_resident DESC");
         $stmt->execute();
         $view = $stmt->fetchAll();
         return $view;
