@@ -96,7 +96,7 @@ $id_resident = $_GET['id_resident'] ?? null;
                             <td>
                                 <form method="POST" action="" onsubmit="return confirm('Are you sure?');">
                                     <input type="hidden" name="id_resident" value="<?= $row['id_resident']; ?>">
-                                    <button type="submit" name="approve_request" class="btn btn-primary btn-sm">Approve</button>
+                                    <button type="submit" name="approve_request" class="btn btn-secondary btn-sm">Approve</button>
                                     <button type="submit" name="reject_request" class="btn btn-danger btn-sm">Reject</button>
                                 </form>
                             </td>

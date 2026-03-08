@@ -98,10 +98,25 @@ $count_hof = $residentbmis->count_hof();
 <?php
 include('dashboard_sidebar_start.php');
 ?>
-<br><br><br>
+<br>
+
+
+
+
+
+
+
+
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
+
+
+    <?php include('admin_dashboard2.php'); ?>
+
+
+    <br>
     <!-- Page Heading -->
     <div class="row">
         <canvas id="numberOfRecordsChart" width="2000" height="300"></canvas>
