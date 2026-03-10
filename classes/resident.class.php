@@ -919,10 +919,36 @@ class ResidentClass extends BMISClass
 
 
 
+    // public function view_resident()
+    // {
+    //     $connection = $this->openConn();
+    //     $stmt = $connection->prepare("SELECT * from tbl_resident WHERE status2!='DELETED' AND request_status = 'approved' ORDER BY id_resident DESC");
+    //     $stmt->execute();
+    //     $view = $stmt->fetchAll();
+    //     return $view;
+    // }
+
     public function view_resident()
     {
         $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * from tbl_resident WHERE request_status = 'approved' ORDER BY id_resident DESC");
+
+        if (isset($_GET['deleted'])) {
+            // Show only deleted residents
+            $stmt = $connection->prepare(
+                "SELECT * FROM tbl_resident 
+             WHERE status2 = 'DELETED'
+             ORDER BY id_resident DESC"
+            );
+        } else {
+            // Show only active and approved residents
+            $stmt = $connection->prepare(
+                "SELECT * FROM tbl_resident 
+             WHERE status2 != 'DELETED' 
+             AND request_status = 'approved'
+             ORDER BY id_resident DESC"
+            );
+        }
+
         $stmt->execute();
         $view = $stmt->fetchAll();
         return $view;
@@ -1031,7 +1057,7 @@ class ResidentClass extends BMISClass
 
             try {
                 $connection = $this->openConn();
-                $stmt = $connection->prepare("DELETE FROM tbl_resident WHERE id = ?");
+                $stmt = $connection->prepare("UPDATE tbl_resident SET status2='DELETED' WHERE id_resident = ?");
                 $stmt->execute([$id]);
 
                 echo "<script>alert('Resident deleted successfully!'); window.location.href='{$_SERVER['PHP_SELF']}';</script>";
@@ -1041,7 +1067,6 @@ class ResidentClass extends BMISClass
             $this->closeConn();
         }
     }
-
     //-------------------------------- EXTRA FUNCTIONS FOR RESIDENT CLASS ---------------------------------
 
 

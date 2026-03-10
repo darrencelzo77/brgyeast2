@@ -88,6 +88,14 @@
                     <i class="fas fa-users"></i>
                     <span> Barangay Residents</span></a>
             </li>
+
+            <!-- Resident CRUD -->
+            <li id="resident" class="nav-item">
+                <a class="nav-link" href="admn_resident_crud.php?deleted">
+                    <i class="fas fa-archive"></i>
+                    <span> Archived Residents</span>
+                </a>
+            </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
 

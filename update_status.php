@@ -71,3 +71,19 @@ if (isset($_POST['status']) && isset($_POST['id_blotter'])) {
         echo "Error updating status.";
     }
 }
+
+
+if (isset($_POST['status']) && isset($_POST['id_resident'])) {
+
+    $status = $_POST['status'];
+    $id = $_POST['id_resident'];
+
+    $query = "UPDATE tbl_resident SET status2='$status' WHERE id_resident='$id'";
+
+    if (mysqli_query($db_connection, $query)) {
+        header("Location: " . $_SERVER['HTTP_REFERER']);
+        exit();
+    } else {
+        echo "Error updating status.";
+    }
+}

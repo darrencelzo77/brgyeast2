@@ -9,7 +9,13 @@ if (isset($_POST['search_certofres'])) {
         <thead class="alert-info">
 
             <tr>
-                <th> Actions</th>
+                <?php if (isset($_GET['deleted'])) {  ?>
+
+                <?php } else { ?>
+                    <th> Actions</th>
+                    <th> Actions</th>
+                <?php } ?>
+
                 <th>Certificate / Clearance</th>
                 <th> Surname </th>
                 <th> First name </th>
@@ -28,13 +34,26 @@ if (isset($_POST['search_certofres'])) {
             while ($search = $stmnt->fetch()) {
             ?>
                 <tr>
-                    <td>
-                        <form method="post">
-                            <a href="update_resident_form.php?id_resident=<?= $view['id_resident']; ?>" style="width:70px; font-size: 14px; border-radius:5px; margin-bottom: 2px;" class="btn btn-success"> Update </a>
-                            <button class="btn btn-danger" type="submit" name="delete_resident" style="width: 70px; font-size: 14px; border-radius:5px;"> Delete </button>
-                            <input type="hidden" id="idresident" name="id_resident" value="<?= $view['id_resident']; ?>">
-                        </form>
-                    </td>
+                    <?php if (isset($_GET['deleted'])) {  ?>
+
+                    <?php } else { ?>
+                        <td>
+                            <form method="post">
+                                <a href="update_resident_form.php?id_resident=<?= $view['id_resident']; ?>" style="width:70px; font-size: 14px; border-radius:5px; margin-bottom: 2px;" class="btn btn-success"> Update </a>
+                                <!-- <button class="btn btn-danger" type="submit" name="delete_resident" style="width: 70px; font-size: 14px; border-radius:5px;"> Delete </button> -->
+                                <input type="hidden" id="idresident" name="id_resident" value="<?= $view['id_resident']; ?>">
+                            </form>
+                        </td>
+                        <td>
+                            <form method="post" action="update_status.php">
+                                <input type="hidden" name="status" value="DELETED">
+                                <button class="btn btn-danger" type="submit" style="width: 80px; font-size: 15px; border-radius:5px;" name="id_resident"> Delete </button>
+
+                                <input type="hidden" id="id_resident" name="id_resident" value="<?= $view['id_resident']; ?>">
+                            </form>
+                        </td>
+                    <?php } ?>
+
                     <td>
                         <button data-id="<?= $view['id_resident']; ?>" class="btn btn-success residency" style="width: 100%; height: 40px; font-size: 14px; border-radius:5px; margin-bottom: 5px; margin-left: auto; margin-right: auto;">Residency</button>
                         <button data-id="<?= $view['id_resident']; ?>" class="btn btn-success business" style="width: 100%; height: 40px; font-size: 14px; border-radius:5px; margin-bottom: 5px; margin-left: auto; margin-right: auto;" data-toggle="modal" data-target="#modalBusiness">Business</button>
@@ -302,7 +321,12 @@ if (isset($_POST['search_certofres'])) {
         <table class="table table-hover text-center table-bordered">
             <thead class="alert-info">
                 <tr>
-                    <th> Actions</th>
+                    <?php if (isset($_GET['deleted'])) {  ?>
+
+                    <?php } else { ?>
+                        <th> Actions</th>
+                        <th> Actions</th>
+                    <?php } ?>
                     <th>Certificate / Clearance</th>
                     <th> Email </th>
                     <th> Surname </th>
@@ -329,13 +353,25 @@ if (isset($_POST['search_certofres'])) {
                 <?php if (is_array($view)) { ?>
                     <?php foreach ($view as $view) { ?>
                         <tr>
-                            <td>
-                                <form method="post">
-                                    <a href="update_resident_form.php?id_resident=<?= $view['id_resident']; ?>" style="width:70px; font-size: 14px; border-radius:5px; margin-bottom: 2px;" class="btn btn-success"> Update </a>
-                                    <button class="btn btn-danger" type="submit" name="delete_resident" style="width: 70px; font-size: 14px; border-radius:5px;"> Delete </button>
-                                    <input type="hidden" id="idresident" name="id_resident" value="<?= $view['id_resident']; ?>">
-                                </form>
-                            </td>
+                            <?php if (isset($_GET['deleted'])) {  ?>
+
+                            <?php } else { ?>
+                                <td>
+                                    <form method="post">
+                                        <a href="update_resident_form.php?id_resident=<?= $view['id_resident']; ?>" style="width:70px; font-size: 14px; border-radius:5px; margin-bottom: 2px;" class="btn btn-success"> Update </a>
+                                        <input type="hidden" id="idresident" name="id_resident" value="<?= $view['id_resident']; ?>">
+                                    </form>
+                                </td>
+                                <td>
+                                    <form method="post" action="update_status.php">
+                                        <input type="hidden" name="status" value="DELETED">
+                                        <button class="btn btn-danger" type="submit" style="width: 80px; font-size: 15px; border-radius:5px;" name="id_resident"> Delete </button>
+
+                                        <input type="hidden" id="id_resident" name="id_resident" value="<?= $view['id_resident']; ?>">
+                                    </form>
+                                </td>
+                            <?php } ?>
+
                             <td>
                                 <button data-id="<?= $view['id_resident']; ?>" class="btn btn-success residency" style="width: 95px; height: 40px; font-size: 14px; border-radius:5px; margin-bottom: 5px; margin-left: auto; margin-right: auto;">Residency</button>
                                 <button data-id="<?= $view['id_resident']; ?>" class="btn btn-success business" style="width: 95px; height: 40px; font-size: 14px; border-radius:5px; margin-bottom: 5px; margin-left: auto; margin-right: auto;" data-toggle="modal" data-target="#modalBusiness">Business</button>

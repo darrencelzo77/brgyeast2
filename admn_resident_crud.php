@@ -26,7 +26,8 @@
     include('dashboard_sidebar_start.php');
 
     ?>
-    <?php //include('flexbox.php'); ?>
+    <?php //include('flexbox.php'); 
+    ?>
     <!-- Page Wrapper -->
 
     <!-- End of Sidebar -->
@@ -54,7 +55,12 @@
 
     <!-- Begin Page Content -->
     <div class="container-fluid">
-        <h1 class="mb-4 text-center">Barangay Residents Data</h1>
+        <?php if (isset($_GET['deleted'])) {  ?>
+            <h1 class="mb-4 text-center">Archived Barangay Residents Data</h1>
+        <?php } else { ?>
+            <h1 class="mb-4 text-center">Barangay Residents Data</h1>
+        <?php } ?>
+
 
         <hr>
         <br>
@@ -73,9 +79,14 @@
                 </form>
             </div>
             <div class="col-md-12" style="text-align: center;">
-                <a href="resident_add.php" class="btn btn-success" style="display: flex; align-items: center; justify-content: center; width: 95px; height: 40px; font-size: 14px; border-radius: 5px; margin-bottom: 5px;">
-                    <i class="fas fa-plus icon" style="margin-right: 5px;"></i>Add
-                </a>
+                <?php if (isset($_GET['deleted'])) {  ?>
+
+                <?php } else { ?>
+
+                    <a href="resident_add.php" class="btn btn-success" style="display: flex; align-items: center; justify-content: center; width: 95px; height: 40px; font-size: 14px; border-radius: 5px; margin-bottom: 5px;">
+                        <i class="fas fa-plus icon" style="margin-right: 5px;"></i>Add
+                    </a>
+                <?php } ?>
                 <?php include('admn_table_resident_search.php'); ?>
             </div>
 
