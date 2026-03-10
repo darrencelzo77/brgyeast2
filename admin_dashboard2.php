@@ -1,6 +1,17 @@
 <?php
 
 include('dbcon.php');
+function GetData($sql_query)
+{
+    global $db_connection;
+    $result = $db_connection->query($sql_query);
+    if (!$result || $result->num_rows === 0) {
+        return false;
+    }
+    $row = $result->fetch_array(MYSQLI_NUM);
+    return $row[0];
+}
+
 
 
 ?>
@@ -13,16 +24,34 @@ include('dbcon.php');
             <div class="card shadow-sm border-0">
                 <div class="card-body text-center">
                     <h6 class="text-muted">Total Residents</h6>
-                    <h2 class="fw-bold text-primary">1,245</h2>
+                    <h2 class="fw-bold text-primary"><?php echo GetData('select COUNT(*) from tbl_resident where request_status="approved" '); ?></h2>
                 </div>
             </div>
         </div>
+
+        <?php
+        $clearance       = GetData('SELECT COUNT(*) FROM tbl_clearance WHERE status2="APPROVED"');
+        $indigency       = GetData('SELECT COUNT(*) FROM tbl_indigency WHERE status="APPROVED"');
+        $resCert         = GetData('SELECT COUNT(*) FROM tbl_rescert WHERE status="APPROVED"');
+        $blotter         = GetData('SELECT COUNT(*) FROM tbl_blotter WHERE status="APPROVED"');
+        $businessPermit  = GetData('SELECT COUNT(*) FROM tbl_bspermit WHERE status="APPROVED"');
+
+
+
+        $clearance2       = GetData('SELECT COUNT(*) FROM tbl_clearance WHERE status2="PENDING"');
+        $indigency2       = GetData('SELECT COUNT(*) FROM tbl_indigency WHERE status="PENDING"');
+        $resCert2         = GetData('SELECT COUNT(*) FROM tbl_rescert WHERE status="PENDING"');
+        $blotter2        = GetData('SELECT COUNT(*) FROM tbl_blotter WHERE status="PENDING"');
+        $businessPermit2  = GetData('SELECT COUNT(*) FROM tbl_bspermit WHERE status="PENDING"');
+
+
+        ?>
 
         <div class="col-md-3">
             <div class="card shadow-sm border-0">
                 <div class="card-body text-center">
                     <h6 class="text-muted">Active Requests</h6>
-                    <h2 class="fw-bold text-warning">32</h2>
+                    <h2 class="fw-bold text-warning"><?php echo $clearance2 + $indigency2 + $resCert2 + $blotter2 +  $businessPermit2; ?></h2>
                 </div>
             </div>
         </div>
@@ -31,7 +60,7 @@ include('dbcon.php');
             <div class="card shadow-sm border-0">
                 <div class="card-body text-center">
                     <h6 class="text-muted">Completed Transactions</h6>
-                    <h2 class="fw-bold text-success">890</h2>
+                    <h2 class="fw-bold text-success"><?php echo $clearance + $indigency + $resCert + $blotter +  $businessPermit; ?></h2>
                 </div>
             </div>
         </div>
@@ -40,7 +69,7 @@ include('dbcon.php');
             <div class="card shadow-sm border-0">
                 <div class="card-body text-center">
                     <h6 class="text-muted">Pending Approvals</h6>
-                    <h2 class="fw-bold text-danger">12</h2>
+                    <h2 class="fw-bold text-danger"><?php echo GetData('select COUNT(*) from tbl_resident where request_status="pending" '); ?></h2>
                 </div>
             </div>
         </div>
@@ -62,7 +91,7 @@ include('dbcon.php');
 
                     <style>
                         .dashboard-table-container {
-                            max-height: 350px;
+                            max-height: 600px;
                             overflow-y: auto;
                         }
 
@@ -79,54 +108,50 @@ include('dbcon.php');
 
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Resident Name</th>
                                     <th>Transaction</th>
-                                    <th>Date</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                <tr>
-                                    <td>001</td>
-                                    <td>Juan Dela Cruz</td>
-                                    <td>Barangay Clearance</td>
-                                    <td>Mar 08, 2026</td>
-                                    <td><span class="badge bg-success">Completed</span></td>
-                                </tr>
+                                <?php
+                                $result = mysqli_query($db_connection, "SELECT CONCAT(fname,' ',lname) AS name, status2 
+                                        FROM tbl_clearance WHERE status2!='DELETED'
+                                        ORDER BY id_clearance DESC 
+                                        LIMIT 5");
 
-                                <tr>
-                                    <td>002</td>
-                                    <td>Maria Santos</td>
-                                    <td>Certificate of Residency</td>
-                                    <td>Mar 07, 2026</td>
-                                    <td><span class="badge bg-warning">Pending</span></td>
-                                </tr>
+                                if ($result && mysqli_num_rows($result) > 0) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo '<tr>
+                                            <td>' . htmlspecialchars($row['name']) . '</td>
+                                            <td>Barangay Clearance</td>
+                                            <td>' . htmlspecialchars($row['status2']) . '</td>
+                                        </tr>';
+                                    }
+                                } else {
+                                    echo '<tr><td colspan="3" class="text-center">No transactions found.</td></tr>';
+                                }
+                                ?>
 
-                                <tr>
-                                    <td>003</td>
-                                    <td>Pedro Reyes</td>
-                                    <td>Business Permit</td>
-                                    <td>Mar 06, 2026</td>
-                                    <td><span class="badge bg-primary">Processing</span></td>
-                                </tr>
+                                <?php
+                                $result = mysqli_query($db_connection, "SELECT CONCAT(fname,' ',lname) AS name, status
+                                        FROM tbl_bspermit WHERE status!='DELETED'
+                                        ORDER BY id_bspermit DESC 
+                                        LIMIT 5");
 
-                                <tr>
-                                    <td>004</td>
-                                    <td>Ana Lopez</td>
-                                    <td>Barangay ID</td>
-                                    <td>Mar 05, 2026</td>
-                                    <td><span class="badge bg-success">Completed</span></td>
-                                </tr>
-
-                                <tr>
-                                    <td>005</td>
-                                    <td>Jose Ramos</td>
-                                    <td>Indigency Certificate</td>
-                                    <td>Mar 04, 2026</td>
-                                    <td><span class="badge bg-danger">Rejected</span></td>
-                                </tr>
+                                if ($result && mysqli_num_rows($result) > 0) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo '<tr>
+                                            <td>' . htmlspecialchars($row['name']) . '</td>
+                                            <td>Business Permit</td>
+                                            <td>' . htmlspecialchars($row['status']) . '</td>
+                                        </tr>';
+                                    }
+                                } else {
+                                    echo '<tr><td colspan="3" class="text-center">No transactions found.</td></tr>';
+                                }
+                                ?>
 
                             </tbody>
 

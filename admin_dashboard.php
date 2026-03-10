@@ -98,10 +98,6 @@ $count_hof = $residentbmis->count_hof();
 <?php
 include('dashboard_sidebar_start.php');
 ?>
-<br>
-
-
-
 
 
 

@@ -52,7 +52,7 @@ $birthRatePer100Women = 5;   // 5 new residents per 100 reproductive-age women p
 $deathRatePer100Seniors = 3; // 3 deaths per 100 seniors per year
 
 $predictedNextYear = $totalResidents + round(($femalesReproductiveAge * $birthRatePer100Women) / 100)
-                                  - round(($seniorCount * $deathRatePer100Seniors) / 100);
+    - round(($seniorCount * $deathRatePer100Seniors) / 100);
 
 // --- 5-Year Population Projection ---
 $populationProjection = [];
@@ -240,4 +240,5 @@ for ($year = 1; $year <= 5; $year++) {
 </script>
 
 </body>
+
 </html>
