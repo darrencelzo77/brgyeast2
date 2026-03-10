@@ -16,7 +16,9 @@ if (isset($_POST['search_bspermit'])) {
                 <th> Address </th>
                 <th> Business Industry </th>
                 <th> Area of Establishment </th>
+                <th> Status</th>
                 <th style="width: 22%;"> Actions</th>
+                <th style="width: 22%;"> Update Status</th>
 
             </tr>
         </thead>
@@ -32,13 +34,6 @@ if (isset($_POST['search_bspermit'])) {
             while ($view = $stmnt->fetch()) {
             ?>
                 <tr>
-                    <td>
-                        <form action="" method="post">
-                            <a class="btn btn-success" target="blank" style="width: 80px; font-size: 15px; border-radius:5px; margin-bottom: 2px;" href="businesspermit_form.php?id_bspermit=<?= $view['id_bspermit']; ?>">Generate</a>
-                            <input type="hidden" name="id_bspermit" value="<?= $view['id_bspermit']; ?>">
-                            <button class="btn btn-danger" style="width: 80px; font-size: 15px; border-radius:5px;" type="submit" name="delete_bspermit"> Delete </button>
-                        </form>
-                    </td>
                     <td> <?= $view['id_resident']; ?> </td>
                     <td> <?= $view['lname']; ?> </td>
                     <td> <?= $view['fname']; ?> </td>
@@ -47,11 +42,46 @@ if (isset($_POST['search_bspermit'])) {
                     <td> <?= $view['houseno']; ?>, <?= $view['street']; ?>, <?= $view['brgy']; ?>, <?= $view['municipal']; ?> </td>
                     <td> <?= $view['bsindustry']; ?> </td>
                     <td> <?= $view['aoe']; ?> </td>
+                    <?php include('include_statuses.php'); ?>
                     <td>
                         <form action="" method="post">
-                            <a class="btn btn-success" target="blank" style="width: 80px; font-size: 15px; border-radius:5px; margin-bottom: 2px;" href="businesspermit_form.php?id_bspermit=<?= $view['id_bspermit']; ?>">Generate</a>
+
+
+                            <a class="btn btn-success"
+                                style="width: 80px; font-size: 15px; border-radius:5px; margin-bottom: 2px;"
+                                href="businesspermit_form.php?id_bspermit=<?= $view['id_bspermit']; ?>"
+                                onclick="openPopup(this.href); return false;">
+                                Generate
+                            </a>
+
+
+
+
                             <input type="hidden" name="id_bspermit" value="<?= $view['id_bspermit']; ?>">
-                            <button class="btn btn-danger" style="width: 80px; font-size: 15px; border-radius:5px;" type="submit" name="delete_bspermit"> Delete </button>
+                            <!-- <button class="btn btn-danger" style="width: 80px; font-size: 15px; border-radius:5px;" type="submit" name="delete_bspermit"> Delete </button> -->
+                        </form>
+                    </td>
+                    <td style="width:180px;">
+                        <form method="POST" action="update_status.php">
+
+                            <input type="hidden" name="id_bspermit" value="<?= $view['id_bspermit']; ?>">
+
+                            <select name="status" class="form-control form-control-sm" onchange="this.form.submit()">
+
+                                <option value="PENDING" <?= $view['status'] == 'PENDING' ? 'selected' : '' ?>>PENDING</option>
+
+                                <option value="APPROVED" <?= $view['status'] == 'APPROVED' ? 'selected' : '' ?>>APPROVED</option>
+
+                                <option value="REJECTED" <?= $view['status'] == 'REJECTED' ? 'selected' : '' ?>>REJECTED</option>
+
+                                <option value="READY FOR PICKUP" <?= $view['status'] == 'READY FOR PICKUP' ? 'selected' : '' ?>>READY FOR PICKUP</option>
+
+                                <option value="CLAIMED" <?= $view['status'] == 'CLAIMED' ? 'selected' : '' ?>>CLAIMED</option>
+
+                                <option value="DELETED" <?= $view['status'] == 'DELETED' ? 'selected' : '' ?>>DELETED</option>
+
+                            </select>
+
                         </form>
                     </td>
                 </tr>
@@ -79,7 +109,9 @@ if (isset($_POST['search_bspermit'])) {
                     <th> Address </th>
                     <th> Business Industry </th>
                     <th> Area of Establishment </th>
+                    <th> Status</th>
                     <th style="width: 22%;"> Actions</th>
+                    <th style="width: 22%;"> Update Status</th>
                 </tr>
             </thead>
 
@@ -96,6 +128,7 @@ if (isset($_POST['search_bspermit'])) {
                             <td> <?= $view['houseno']; ?>, <?= $view['street']; ?>, <?= $view['brgy']; ?>, <?= $view['municipal']; ?> </td>
                             <td> <?= $view['bsindustry']; ?> </td>
                             <td> <?= $view['aoe']; ?> </td>
+                            <?php include('include_statuses.php'); ?>
                             <td>
                                 <form action="" method="post">
 
@@ -111,7 +144,30 @@ if (isset($_POST['search_bspermit'])) {
 
 
                                     <input type="hidden" name="id_bspermit" value="<?= $view['id_bspermit']; ?>">
-                                    <button class="btn btn-danger" style="width: 80px; font-size: 15px; border-radius:5px;" type="submit" name="delete_bspermit"> Delete </button>
+                                    <!-- <button class="btn btn-danger" style="width: 80px; font-size: 15px; border-radius:5px;" type="submit" name="delete_bspermit"> Delete </button> -->
+                                </form>
+                            </td>
+                            <td style="width:180px;">
+                                <form method="POST" action="update_status.php">
+
+                                    <input type="hidden" name="id_bspermit" value="<?= $view['id_bspermit']; ?>">
+
+                                    <select name="status" class="form-control form-control-sm" onchange="this.form.submit()">
+
+                                        <option value="PENDING" <?= $view['status'] == 'PENDING' ? 'selected' : '' ?>>PENDING</option>
+
+                                        <option value="APPROVED" <?= $view['status'] == 'APPROVED' ? 'selected' : '' ?>>APPROVED</option>
+
+                                        <option value="REJECTED" <?= $view['status'] == 'REJECTED' ? 'selected' : '' ?>>REJECTED</option>
+
+                                        <option value="READY FOR PICKUP" <?= $view['status'] == 'READY FOR PICKUP' ? 'selected' : '' ?>>READY FOR PICKUP</option>
+
+                                        <option value="CLAIMED" <?= $view['status'] == 'CLAIMED' ? 'selected' : '' ?>>CLAIMED</option>
+
+                                        <option value="DELETED" <?= $view['status'] == 'DELETED' ? 'selected' : '' ?>>DELETED</option>
+
+                                    </select>
+
                                 </form>
                             </td>
                         </tr>

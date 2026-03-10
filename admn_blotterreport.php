@@ -94,6 +94,9 @@ include('dashboard_sidebar_start.php');
         Add
     </button>
 
+    <a href="admn_blotterreport.php?deleted" class="btn btn-warning" style="color: white; width: 120px; height: 40px; font-size: 14px; border-radius:5px; margin-bottom: 5px; margin-left: auto; margin-right: auto;">Archived Files</a>
+
+
     <!-- Add Blotter Modal -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -239,75 +242,75 @@ include('dashboard_sidebar_start.php');
 
 
     <?php
-// Risk analysis before table
-$hourCounts = [];
-$locationCounts = [];
+    // Risk analysis before table
+    $hourCounts = [];
+    $locationCounts = [];
 
-if (!empty($view)) {
-    foreach ($view as $record) {
-        // Hour-based analysis
-        $hour = date('H', strtotime($record['timeapplied']));
-        $hourCounts[$hour] = ($hourCounts[$hour] ?? 0) + 1;
+    if (!empty($view)) {
+        foreach ($view as $record) {
+            // Hour-based analysis
+            $hour = date('H', strtotime($record['timeapplied']));
+            $hourCounts[$hour] = ($hourCounts[$hour] ?? 0) + 1;
 
-        // Location-based analysis
-        $location = $record['street'] . ', ' . $record['brgy'];
-        $locationCounts[$location] = ($locationCounts[$location] ?? 0) + 1;
+            // Location-based analysis
+            $location = $record['street'] . ', ' . $record['brgy'];
+            $locationCounts[$location] = ($locationCounts[$location] ?? 0) + 1;
+        }
+
+        arsort($hourCounts);
+        arsort($locationCounts);
+
+        $topHours = array_slice($hourCounts, 0, 3, true);
+        $topLocations = array_slice($locationCounts, 0, 3, true);
     }
+    ?>
 
-    arsort($hourCounts);
-    arsort($locationCounts);
-
-    $topHours = array_slice($hourCounts, 0, 3, true);
-    $topLocations = array_slice($locationCounts, 0, 3, true);
-}
-?>
-
-<!-- Risk Analysis Cards -->
-<div class="row mb-4">
-    <div class="col-md-6">
-        <div class="card border-primary shadow-sm">
-            <div class="card-header bg-primary text-white">
-                <i class="fas fa-chart-line"></i> Top Risky Hours
+    <!-- Risk Analysis Cards -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card border-primary shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <i class="fas fa-chart-line"></i> Top Risky Hours
+                </div>
+                <div class="card-body">
+                    <?php if (!empty($topHours)): ?>
+                        <ul class="list-group list-group-flush">
+                            <?php foreach ($topHours as $hour => $count): ?>
+                                <li class="list-group-item">
+                                    <?= date('h:i A', strtotime($hour . ':00')) ?> - <?= date('h:i A', strtotime($hour . ':59')) ?>
+                                    <span class="badge badge-danger float-right"><?= $count ?> incidents</span>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php else: ?>
+                        <p>No data available</p>
+                    <?php endif; ?>
+                </div>
             </div>
-            <div class="card-body">
-                <?php if (!empty($topHours)): ?>
-                    <ul class="list-group list-group-flush">
-                        <?php foreach ($topHours as $hour => $count): ?>
-                            <li class="list-group-item">
-                                <?= date('h:i A', strtotime($hour.':00')) ?> - <?= date('h:i A', strtotime($hour.':59')) ?>
-                                <span class="badge badge-danger float-right"><?= $count ?> incidents</span>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
-                <?php else: ?>
-                    <p>No data available</p>
-                <?php endif; ?>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card border-warning shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <i class="fas fa-map-marker-alt"></i> Top Risky Locations
+                </div>
+                <div class="card-body">
+                    <?php if (!empty($topLocations)): ?>
+                        <ul class="list-group list-group-flush">
+                            <?php foreach ($topLocations as $loc => $count): ?>
+                                <li class="list-group-item">
+                                    <?= htmlspecialchars($loc) ?>
+                                    <span class="badge badge-danger float-right"><?= $count ?> incidents</span>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php else: ?>
+                        <p>No data available</p>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="col-md-6">
-        <div class="card border-warning shadow-sm">
-            <div class="card-header bg-warning text-dark">
-                <i class="fas fa-map-marker-alt"></i> Top Risky Locations
-            </div>
-            <div class="card-body">
-                <?php if (!empty($topLocations)): ?>
-                    <ul class="list-group list-group-flush">
-                        <?php foreach ($topLocations as $loc => $count): ?>
-                            <li class="list-group-item">
-                                <?= htmlspecialchars($loc) ?>
-                                <span class="badge badge-danger float-right"><?= $count ?> incidents</span>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
-                <?php else: ?>
-                    <p>No data available</p>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
-</div>
     <!-- Blotter Records Table -->
     <div class="row">
         <div class="col">
@@ -321,6 +324,9 @@ if (!empty($view)) {
                             <th>Respondent</th>
                             <th>Contact</th>
                             <th>Date Filed</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                            <th>Update Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -341,6 +347,55 @@ if (!empty($view)) {
                                         <td><?= htmlspecialchars($data['case_respondent'] ?? 'N/A') ?></td>
                                         <td><?= htmlspecialchars($data['contact']) ?></td>
                                         <td><?= date('M d, Y h:i A', strtotime($data['timeapplied'])) ?></td>
+                                        <td>
+                                            <?php
+                                            $status = $data['status'];
+
+                                            if ($status == 'PENDING') {
+                                                echo '<span class="badge bg-warning text-dark">PENDING</span>';
+                                            } elseif ($status == 'APPROVED') {
+                                                echo '<span class="badge bg-success">APPROVED</span>';
+                                            } elseif ($status == 'REJECTED') {
+                                                echo '<span class="badge bg-danger">REJECTED</span>';
+                                            } elseif ($status == 'READY FOR PICKUP') {
+                                                echo '<span class="badge bg-primary">READY FOR PICKUP</span>';
+                                            } elseif ($status == 'CLAIMED') {
+                                                echo '<span class="badge bg-secondary">CLAIMED</span>';
+                                            } elseif ($status == 'DELETED') {
+                                                echo '<span class="badge bg-secondary">DELETED</span>';
+                                            }
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <form action="" method="post">
+                                                <a class="btn btn-success" style="width: 80px; font-size: 15px; border-radius:5px; margin-bottom: 2px;" href="update_blotter_form.php?id_blotter=<?= $view['id_blotter']; ?>">Update</a>
+                                                <input type="hidden" name="id_blotter" value="<?= $view['id_blotter']; ?>">
+                                                <!-- <button class="btn btn-danger" style="width: 80px; font-size: 15px; border-radius:5px;" type="submit" name="delete_blotter"> Delete </button> -->
+                                            </form>
+                                        </td>
+                                        <td style="width:180px;">
+                                            <form method="POST" action="update_status.php">
+
+                                                <input type="hidden" name="id_blotter" value="<?= $data['id_blotter']; ?>">
+
+                                                <select name="status" class="form-control form-control-sm" onchange="this.form.submit()">
+
+                                                    <option value="PENDING" <?= $data['status'] == 'PENDING' ? 'selected' : '' ?>>PENDING</option>
+
+                                                    <option value="APPROVED" <?= $data['status'] == 'APPROVED' ? 'selected' : '' ?>>APPROVED</option>
+
+                                                    <option value="REJECTED" <?= $data['status'] == 'REJECTED' ? 'selected' : '' ?>>REJECTED</option>
+
+                                                    <option value="READY FOR PICKUP" <?= $data['status'] == 'READY FOR PICKUP' ? 'selected' : '' ?>>READY FOR PICKUP</option>
+
+                                                    <option value="CLAIMED" <?= $data['status'] == 'CLAIMED' ? 'selected' : '' ?>>CLAIMED</option>
+
+                                                    <option value="DELETED" <?= $data['status'] == 'DELETED' ? 'selected' : '' ?>>DELETED</option>
+
+                                                </select>
+
+                                            </form>
+                                        </td>
                                     </tr>
                                 <?php
                                 }

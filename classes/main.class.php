@@ -1582,12 +1582,35 @@ class BMISClass
         }
     }
 
+    // public function view_certofres()
+    // {
+    //     $connection = $this->openConn();
+    //     $stmt = $connection->prepare("SELECT * from tbl_rescert ORDER BY id_rescert DESC ");
+    //     $stmt->execute();
+    //     $view = $stmt->fetchAll();
+    //     return $view;
+    // }
     public function view_certofres()
     {
         $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * from tbl_rescert ORDER BY id_rescert DESC ");
+
+        if (isset($_GET['deleted'])) {
+            $stmt = $connection->prepare(
+                "SELECT * FROM tbl_rescert 
+             WHERE status = 'DELETED'
+             ORDER BY id_rescert DESC"
+            );
+        } else {
+            $stmt = $connection->prepare(
+                "SELECT * FROM tbl_rescert 
+             WHERE status != 'DELETED'
+             ORDER BY id_rescert DESC"
+            );
+        }
+
         $stmt->execute();
         $view = $stmt->fetchAll();
+
         return $view;
     }
 
@@ -1813,15 +1836,37 @@ class BMISClass
     }
 
 
+    // public function view_certofindigency()
+    // {
+    //     $connection = $this->openConn();
+    //     $stmt = $connection->prepare("SELECT * from tbl_indigency order by id_indigency DESC ");
+    //     $stmt->execute();
+    //     $view = $stmt->fetchAll();
+    //     return $view;
+    // }
+
     public function view_certofindigency()
     {
         $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * from tbl_indigency order by id_indigency DESC ");
+
+        if (isset($_GET['deleted'])) {
+            $stmt = $connection->prepare(
+                "SELECT * FROM tbl_indigency 
+             WHERE status = 'DELETED'
+             ORDER BY id_indigency DESC"
+            );
+        } else {
+            $stmt = $connection->prepare(
+                "SELECT * FROM tbl_indigency 
+             WHERE status != 'DELETED'
+             ORDER BY id_indigency DESC"
+            );
+        }
+
         $stmt->execute();
         $view = $stmt->fetchAll();
         return $view;
     }
-
 
     public function delete_certofindigency()
     {
@@ -2099,10 +2144,33 @@ class BMISClass
     }
 
 
+    // public function view_clearance()
+    // {
+    //     $connection = $this->openConn();
+    //     $stmt = $connection->prepare("SELECT * from tbl_clearance ORDER BY id_clearance DESC ");
+    //     $stmt->execute();
+    //     $view = $stmt->fetchAll();
+    //     return $view;
+    // }
+
     public function view_clearance()
     {
         $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * from tbl_clearance ORDER BY id_clearance DESC ");
+
+        if (isset($_GET['deleted'])) {
+            $stmt = $connection->prepare(
+                "SELECT * FROM tbl_clearance 
+             WHERE status2 = 'DELETED'
+             ORDER BY id_clearance DESC"
+            );
+        } else {
+            $stmt = $connection->prepare(
+                "SELECT * FROM tbl_clearance 
+             WHERE status2 != 'DELETED'
+             ORDER BY id_clearance DESC"
+            );
+        }
+
         $stmt->execute();
         $view = $stmt->fetchAll();
         return $view;
@@ -2398,10 +2466,33 @@ class BMISClass
 
 
 
+    // public function view_bspermit()
+    // {
+    //     $connection = $this->openConn();
+    //     $stmt = $connection->prepare("SELECT * from tbl_bspermit ORDER BY id_bspermit DESC ");
+    //     $stmt->execute();
+    //     $view = $stmt->fetchAll();
+    //     return $view;
+    // }
+
     public function view_bspermit()
     {
         $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * from tbl_bspermit ORDER BY id_bspermit DESC ");
+
+        if (isset($_GET['deleted'])) {
+            $stmt = $connection->prepare(
+                "SELECT * FROM tbl_bspermit 
+             WHERE status = 'DELETED'
+             ORDER BY id_bspermit DESC"
+            );
+        } else {
+            $stmt = $connection->prepare(
+                "SELECT * FROM tbl_bspermit 
+             WHERE status != 'DELETED'
+             ORDER BY id_bspermit DESC"
+            );
+        }
+
         $stmt->execute();
         $view = $stmt->fetchAll();
         return $view;
@@ -2792,15 +2883,38 @@ class BMISClass
     }
 
 
+    // public function view_blotter()
+    // {
+    //     $connection = $this->openConn();
+    //     $stmt = $connection->prepare("SELECT * from tbl_blotter ORDER BY id_blotter DESC ");
+    //     $stmt->execute();
+    //     $view = $stmt->fetchAll();
+    //     return $view;
+    // }
+
+
     public function view_blotter()
     {
         $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * from tbl_blotter ORDER BY id_blotter DESC ");
+
+        if (isset($_GET['deleted'])) {
+            $stmt = $connection->prepare(
+                "SELECT * FROM tbl_blotter 
+             WHERE status = 'DELETED'
+             ORDER BY id_blotter DESC"
+            );
+        } else {
+            $stmt = $connection->prepare(
+                "SELECT * FROM tbl_blotter 
+             WHERE status != 'DELETED'
+             ORDER BY id_blotter DESC"
+            );
+        }
+
         $stmt->execute();
         $view = $stmt->fetchAll();
         return $view;
     }
-
 
     public function delete_blotter()
     {

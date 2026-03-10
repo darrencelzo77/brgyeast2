@@ -18,8 +18,9 @@ if (isset($_POST['search_certofres'])) {
                 <th> Address </th>
                 <th> Date </th>
                 <th> Purpose </th>
+                <th> Status </th>
                 <th> Actions</th>
-
+                <th style="width: 18%;"> Update Status</th>
             </tr>
         </thead>
 
@@ -43,11 +44,42 @@ if (isset($_POST['search_certofres'])) {
                     <td> <?= $view['houseno']; ?>, <?= $view['street']; ?>, <?= $view['brgy']; ?>, <?= $view['municipal']; ?></td>
                     <td> <?= $view['date']; ?> </td>
                     <td> <?= $view['purpose']; ?> </td>
-                    <td>
+                    <?php include('include_statuses.php'); ?>
+                    <td style="white-space:nowrap;">
                         <form action="" method="post">
+                            <a class="btn btn-success"
+                                style="width: 80px; font-size: 15px; border-radius:5px; margin-bottom: 2px;"
+                                href="rescert_form.php?id_rescert=<?= $view['id_rescert']; ?>"
+                                onclick="openPopup(this.href); return false;">
+                                Generate
+                            </a>
+                            <input type="hidden" name="id_rescert" value="<?= $view['id_rescert']; ?>">
+                            <!-- <button class="btn btn-danger" type="submit" style="width: 80px; font-size: 15px; border-radius:5px;" name="delete_certofres"> Delete </button> -->
+                        </form>
+
+
+                    </td>
+                    <td style="width:180px;">
+                        <form method="POST" action="update_status.php">
 
                             <input type="hidden" name="id_rescert" value="<?= $view['id_rescert']; ?>">
-                            <button class="btn btn-danger" type="submit" style="width: 80px; font-size: 14px; border-radius:5px;" name="delete_certofres"> Delete </button>
+
+                            <select name="status" class="form-control form-control-sm" onchange="this.form.submit()">
+
+                                <option value="PENDING" <?= $view['status'] == 'PENDING' ? 'selected' : '' ?>>PENDING</option>
+
+                                <option value="APPROVED" <?= $view['status'] == 'APPROVED' ? 'selected' : '' ?>>APPROVED</option>
+
+                                <option value="REJECTED" <?= $view['status'] == 'REJECTED' ? 'selected' : '' ?>>REJECTED</option>
+
+                                <option value="READY FOR PICKUP" <?= $view['status'] == 'READY FOR PICKUP' ? 'selected' : '' ?>>READY FOR PICKUP</option>
+
+                                <option value="CLAIMED" <?= $view['status'] == 'CLAIMED' ? 'selected' : '' ?>>CLAIMED</option>
+
+                                <option value="DELETED" <?= $view['status'] == 'DELETED' ? 'selected' : '' ?>>DELETED</option>
+
+                            </select>
+
                         </form>
                     </td>
                 </tr>
@@ -76,7 +108,9 @@ if (isset($_POST['search_certofres'])) {
                     <th> Address </th>
                     <th> Date </th>
                     <th> Purpose </th>
+                    <th> Status</th>
                     <th style="width: 18%;"> Actions</th>
+                    <th style="width: 18%;"> Update Status</th>
                 </tr>
             </thead>
 
@@ -94,7 +128,8 @@ if (isset($_POST['search_certofres'])) {
                             <td> <?= $view['houseno']; ?>, <?= $view['street']; ?>, <?= $view['brgy']; ?>, <?= $view['municipal']; ?></td>
                             <td> <?= $view['date']; ?> </td>
                             <td> <?= $view['purpose']; ?> </td>
-                            <td>
+                            <?php include('include_statuses.php'); ?>
+                            <td style="white-space:nowrap;">
                                 <form action="" method="post">
                                     <a class="btn btn-success"
                                         style="width: 80px; font-size: 15px; border-radius:5px; margin-bottom: 2px;"
@@ -103,9 +138,36 @@ if (isset($_POST['search_certofres'])) {
                                         Generate
                                     </a>
                                     <input type="hidden" name="id_rescert" value="<?= $view['id_rescert']; ?>">
-                                    <button class="btn btn-danger" type="submit" style="width: 80px; font-size: 15px; border-radius:5px;" name="delete_certofres"> Delete </button>
+                                    <!-- <button class="btn btn-danger" type="submit" style="width: 80px; font-size: 15px; border-radius:5px;" name="delete_certofres"> Delete </button> -->
+                                </form>
+
+
+                            </td>
+
+                            <td style="width:180px;">
+                                <form method="POST" action="update_status.php">
+
+                                    <input type="hidden" name="id_rescert" value="<?= $view['id_rescert']; ?>">
+
+                                    <select name="status" class="form-control form-control-sm" onchange="this.form.submit()">
+
+                                        <option value="PENDING" <?= $view['status'] == 'PENDING' ? 'selected' : '' ?>>PENDING</option>
+
+                                        <option value="APPROVED" <?= $view['status'] == 'APPROVED' ? 'selected' : '' ?>>APPROVED</option>
+
+                                        <option value="REJECTED" <?= $view['status'] == 'REJECTED' ? 'selected' : '' ?>>REJECTED</option>
+
+                                        <option value="READY FOR PICKUP" <?= $view['status'] == 'READY FOR PICKUP' ? 'selected' : '' ?>>READY FOR PICKUP</option>
+
+                                        <option value="CLAIMED" <?= $view['status'] == 'CLAIMED' ? 'selected' : '' ?>>CLAIMED</option>
+
+                                        <option value="DELETED" <?= $view['status'] == 'DELETED' ? 'selected' : '' ?>>DELETED</option>
+
+                                    </select>
+
                                 </form>
                             </td>
+
                         </tr>
                     <?php
                     }

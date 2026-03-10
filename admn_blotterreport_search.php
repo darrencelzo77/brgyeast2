@@ -62,6 +62,7 @@ if (isset($_POST['search_bspermit'])) {
 					</td>
 
 					<td> <?= $view['timeapplied']; ?> </td>
+					
 				</tr>
 			<?php
 			}
@@ -84,7 +85,9 @@ if (isset($_POST['search_bspermit'])) {
 				<th> Contact # </th>
 				<th> Narrative Report </th>
 				<th> Date & Time Applied</th>
+				<th> Status</th>
 				<th> Actions</th>
+				<th> Update Status </th>
 
 			</tr>
 		</thead>
@@ -117,11 +120,35 @@ if (isset($_POST['search_bspermit'])) {
 						</td>
 
 						<td> <?= $view['timeapplied']; ?> </td>
+						<?php include('include_statuses.php'); ?>
 						<td>
 							<form action="" method="post">
 								<a class="btn btn-success" style="width: 80px; font-size: 15px; border-radius:5px; margin-bottom: 2px;" href="update_blotter_form.php?id_blotter=<?= $view['id_blotter']; ?>">Update</a>
 								<input type="hidden" name="id_blotter" value="<?= $view['id_blotter']; ?>">
-								<button class="btn btn-danger" style="width: 80px; font-size: 15px; border-radius:5px;" type="submit" name="delete_blotter"> Delete </button>
+								<!-- <button class="btn btn-danger" style="width: 80px; font-size: 15px; border-radius:5px;" type="submit" name="delete_blotter"> Delete </button> -->
+							</form>
+						</td>
+						<td style="width:180px;">
+							<form method="POST" action="update_status.php">
+
+								<input type="hidden" name="id_rescert" value="<?= $view['id_rescert']; ?>">
+
+								<select name="status" class="form-control form-control-sm" onchange="this.form.submit()">
+
+									<option value="PENDING" <?= $view['status'] == 'PENDING' ? 'selected' : '' ?>>PENDING</option>
+
+									<option value="APPROVED" <?= $view['status'] == 'APPROVED' ? 'selected' : '' ?>>APPROVED</option>
+
+									<option value="REJECTED" <?= $view['status'] == 'REJECTED' ? 'selected' : '' ?>>REJECTED</option>
+
+									<option value="READY FOR PICKUP" <?= $view['status'] == 'READY FOR PICKUP' ? 'selected' : '' ?>>READY FOR PICKUP</option>
+
+									<option value="CLAIMED" <?= $view['status'] == 'CLAIMED' ? 'selected' : '' ?>>CLAIMED</option>
+
+									<option value="DELETED" <?= $view['status'] == 'DELETED' ? 'selected' : '' ?>>DELETED</option>
+
+								</select>
+
 							</form>
 						</td>
 
