@@ -104,6 +104,7 @@ if (isset($_POST['search_clearance'])) {
             <thead class="alert-info">
                 <tr>
                     <th> Resident ID </th>
+                    <th> Control # </th>
                     <th style="width: 10%;"> Surname </th>
                     <th style="width: 10%;"> First Name </th>
                     <th style="width: 10%;"> Middle Name </th>
@@ -123,6 +124,7 @@ if (isset($_POST['search_clearance'])) {
                     <?php foreach ($view as $view) { ?>
                         <tr>
                             <td> <?= $view['id_resident']; ?> </td>
+                            <td> <?= $view['control_no']; ?> </td>
                             <td> <?= $view['lname']; ?> </td>
                             <td> <?= $view['fname']; ?> </td>
                             <td> <?= $view['mi']; ?> </td>

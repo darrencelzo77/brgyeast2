@@ -101,6 +101,7 @@ if (isset($_POST['search_certofindigency'])) {
             <thead class="alert-info">
                 <tr>
                     <th style="width: 10%;"> Resident ID </th>
+                    <th style="width: 10%;"> Control # </th>
                     <th style="width: 10%;"> Surname </th>
                     <th style="width: 10%;"> First Name </th>
                     <th style="width: 10%;"> Middle Name </th>
@@ -121,6 +122,7 @@ if (isset($_POST['search_certofindigency'])) {
                         <tr>
 
                             <td> <?= $view['id_resident']; ?> </td>
+                            <td> <?= $view['control_no']; ?> </td>
                             <td> <?= $view['lname']; ?> </td>
                             <td> <?= $view['fname']; ?> </td>
                             <td> <?= $view['mi']; ?> </td>

@@ -102,6 +102,7 @@ if (isset($_POST['search_bspermit'])) {
                 <tr>
 
                     <th> Resident ID </th>
+                     <th> Control #</th>
                     <th> Surname </th>
                     <th> First Name </th>
                     <th> Middle Name </th>
@@ -121,6 +122,7 @@ if (isset($_POST['search_bspermit'])) {
                         <tr>
 
                             <td> <?= $view['id_resident']; ?> </td>
+                            <td> <?= $view['control_no']; ?> </td>
                             <td> <?= $view['lname']; ?> </td>
                             <td> <?= $view['fname']; ?> </td>
                             <td> <?= $view['mi']; ?> </td>
