@@ -194,15 +194,22 @@ if (isset($_POST['search_bspermit'])) {
     <!-- fontawesome icons -->
     <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
     <script src="bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
-    <script>
-        function openPopup(url) {
-            window.open(
-                url,
-                'generateWindow',
-                'width=900,height=700,scrollbars=yes,resizable=yes'
-            );
-        }
-    </script>
+      <script>
+function openPopup(url) {
+
+    const width = 900;
+    const height = 700;
+
+    const left = (screen.width / 2) - (width / 2);
+    const top = (screen.height / 2) - (height / 2);
+
+    window.open(
+        url,
+        'generateWindow',
+        `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,resizable=yes`
+    );
+}
+</script>
 <?php
 }
 $con = null;

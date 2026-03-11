@@ -181,15 +181,22 @@ if (isset($_POST['search_certofres'])) {
 
         </table>
     </div>
-    <script>
-        function openPopup(url) {
-            window.open(
-                url,
-                'generateWindow',
-                'width=900,height=700,scrollbars=yes,resizable=yes'
-            );
-        }
-    </script>
+   <script>
+function openPopup(url) {
+
+    const width = 900;
+    const height = 700;
+
+    const left = (screen.width / 2) - (width / 2);
+    const top = (screen.height / 2) - (height / 2);
+
+    window.open(
+        url,
+        'generateWindow',
+        `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,resizable=yes`
+    );
+}
+</script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js" integrity="sha512-/HL24m2nmyI2+ccX+dSHphAHqLw60Oj5sK8jf59VWtFWZi9vx7jzoxbZmcBeeTeCUc7z1mTs3LfyXGuBU32t+w==" crossorigin="anonymous"></script>

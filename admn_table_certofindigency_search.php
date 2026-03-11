@@ -190,11 +190,18 @@ $con = null;
 ?>
 
 <script>
-    function openPopup(url) {
-        window.open(
-            url,
-            'generateWindow',
-            'width=900,height=700,scrollbars=yes,resizable=yes'
-        );
-    }
+function openPopup(url) {
+
+    const width = 900;
+    const height = 700;
+
+    const left = (screen.width / 2) - (width / 2);
+    const top = (screen.height / 2) - (height / 2);
+
+    window.open(
+        url,
+        'generateWindow',
+        `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,resizable=yes`
+    );
+}
 </script>
