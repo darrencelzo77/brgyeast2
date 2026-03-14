@@ -1637,21 +1637,47 @@ class ResidentClass extends BMISClass
 
 
     // Function to reject a pending request
+    // public function reject_request()
+    // {
+
+    //     if (isset($_POST['reject_request'])) {
+    //         $id_resident = $_POST['id_resident'];
+    //         $connection = $this->openConn();
+    //         $stmt = $connection->prepare("DELETE FROM tbl_resident where id_resident = ?");
+    //         $stmt->execute([$id_resident]);
+
+    //         $message2 = "Resident Request Rejected";
+
+    //         echo "<script type='text/javascript'>alert('$message2');</script>";
+    //         header("Refresh:0");
+    //     }
+    //     // Optionally, you can perform additional actions here, such as notifying the user of the rejection.
+    // }
+    // Function to reject a pending request
     public function reject_request()
     {
-
         if (isset($_POST['reject_request'])) {
+
+            // Retrieve the resident ID from the form submission
             $id_resident = $_POST['id_resident'];
+
+            // Open the database connection
             $connection = $this->openConn();
-            $stmt = $connection->prepare("DELETE FROM tbl_resident where id_resident = ?");
+
+            // Prepare and execute the SQL query
+            $stmt = $connection->prepare("UPDATE tbl_resident SET status2 = 'DELETED' WHERE id_resident = ?");
             $stmt->execute([$id_resident]);
 
-            $message2 = "Resident Request Rejected";
+            $message2 = "Resident Request Rejected.";
 
+            // Close the database connection
+            $connection = null;
+
+            // Display message
             echo "<script type='text/javascript'>alert('$message2');</script>";
+
             header("Refresh:0");
         }
-        // Optionally, you can perform additional actions here, such as notifying the user of the rejection.
     }
 
     public function count_request()
@@ -1668,7 +1694,7 @@ class ResidentClass extends BMISClass
     public function view_request()
     {
         $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * FROM tbl_resident WHERE request_status='pending'");
+        $stmt = $connection->prepare("SELECT * FROM tbl_resident WHERE request_status='pending' AND status2!='DELETED' ");
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;

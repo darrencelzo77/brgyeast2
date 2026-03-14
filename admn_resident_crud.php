@@ -75,7 +75,7 @@
                     <button class="btn btn-success" name="search_certofres" style="width: 70px; font-size: 15px; border-radius:5px; margin-left:42%;">
                         Search
                     </button>
-                    <a href="admn_resident_crud.php" class="btn btn-info" style="width: 70px; font-size: 15px; border-radius:5px;">Reload</a>
+                    <a href="admn_resident_crud.php?deleted" class="btn btn-info" style="width: 70px; font-size: 15px; border-radius:5px;">Reload</a>
                 </form>
             </div>
             <div class="col-md-12" style="text-align: center;">
