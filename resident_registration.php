@@ -245,9 +245,10 @@ $residentbmis->create_resident();
                                 </div>
                                 <div class="col-md-4">
                                     <label>Nationality:</label><span style="color: red;">*</span>
-                                    <select class="form-control" name="nationality" required>
+                                    <!-- <select class="form-control" name="nationality" required>
                                         <option value="Filipino" selected>Filipino</option>
-                                    </select>
+                                    </select> -->
+                                    <input class="form-control" name="nationality" value="Filipino" required readonly />
                                 </div>
                             </div>
 
@@ -478,24 +479,15 @@ $residentbmis->create_resident();
                                         <option>PhilSys ID (National ID)</option>
                                         <option>Passport</option>
                                         <option>Driver’s License</option>
-                                        <option>SSS ID</option>
                                         <option>UMID</option>
+                                        <option>SSS ID</option>
                                         <option>PhilHealth ID</option>
                                         <option>Pag-IBIG ID</option>
                                         <option>Voter’s ID / Voter’s Certification</option>
                                         <option>Postal ID</option>
                                         <option>PRC ID</option>
-                                        <option>Senior Citizen ID</option>
-                                        <option>PWD ID</option>
-                                        <option>Barangay ID</option>
-                                        <option>Police Clearance ID</option>
-                                        <option>NBI Clearance</option>
                                         <option>Company ID</option>
                                         <option>School ID</option>
-                                        <option>OFW ID (OWWA ID)</option>
-                                        <option>Seaman’s Book</option>
-                                        <option>GSIS ID</option>
-                                        <option>Firearms License ID</option>
                                     </select>
                                 </div>
 
@@ -506,29 +498,57 @@ $residentbmis->create_resident();
                                         <option>PhilSys ID (National ID)</option>
                                         <option>Passport</option>
                                         <option>Driver’s License</option>
-                                        <option>SSS ID</option>
                                         <option>UMID</option>
+                                        <option>SSS ID</option>
                                         <option>PhilHealth ID</option>
                                         <option>Pag-IBIG ID</option>
                                         <option>Voter’s ID / Voter’s Certification</option>
                                         <option>Postal ID</option>
                                         <option>PRC ID</option>
-                                        <option>Senior Citizen ID</option>
-                                        <option>PWD ID</option>
-                                        <option>Barangay ID</option>
-                                        <option>Police Clearance ID</option>
-                                        <option>NBI Clearance</option>
                                         <option>Company ID</option>
                                         <option>School ID</option>
-                                        <option>OFW ID (OWWA ID)</option>
-                                        <option>Seaman’s Book</option>
-                                        <option>GSIS ID</option>
-                                        <option>Firearms License ID</option>
                                     </select>
                                 </div>
                             </div>
 
                             <script>
+                                const originalOptions = [
+                                    "PhilSys ID (National ID)",
+                                    "Passport",
+                                    "Driver’s License",
+                                    "UMID",
+                                    "SSS ID",
+                                    "PhilHealth ID",
+                                    "Pag-IBIG ID",
+                                    "Voter’s ID / Voter’s Certification",
+                                    "Postal ID",
+                                    "PRC ID",
+                                    "Company ID",
+                                    "School ID"
+                                ];
+
+                                function populateSelect(select, excludeValue) {
+                                    let currentValue = select.value;
+
+                                    // Clear all options
+                                    select.innerHTML = '<option value="">-- Select Valid ID --</option>';
+
+                                    // Rebuild options except excluded
+                                    originalOptions.forEach(option => {
+                                        if (option !== excludeValue) {
+                                            let opt = document.createElement("option");
+                                            opt.value = option;
+                                            opt.textContent = option;
+                                            select.appendChild(opt);
+                                        }
+                                    });
+
+                                    // Restore previously selected value if still valid
+                                    if (currentValue && currentValue !== excludeValue) {
+                                        select.value = currentValue;
+                                    }
+                                }
+
                                 function updateValidIDs() {
                                     let valid1 = document.getElementById("valid1");
                                     let valid2 = document.getElementById("valid2");
@@ -536,26 +556,15 @@ $residentbmis->create_resident();
                                     let value1 = valid1.value;
                                     let value2 = valid2.value;
 
-                                    // Reset all options first
-                                    for (let opt of valid1.options) opt.disabled = false;
-                                    for (let opt of valid2.options) opt.disabled = false;
-
-                                    // Disable selected in the other dropdown
-                                    for (let opt of valid2.options) {
-                                        if (opt.value === value1 && value1 !== "") {
-                                            opt.disabled = true;
-                                        }
-                                    }
-
-                                    for (let opt of valid1.options) {
-                                        if (opt.value === value2 && value2 !== "") {
-                                            opt.disabled = true;
-                                        }
-                                    }
+                                    populateSelect(valid1, value2);
+                                    populateSelect(valid2, value1);
                                 }
 
                                 document.getElementById("valid1").addEventListener("change", updateValidIDs);
                                 document.getElementById("valid2").addEventListener("change", updateValidIDs);
+
+                                // Initialize on load
+                                updateValidIDs();
                             </script>
                             <!-- Valid ID Upload Fields -->
                             <div class="row mb-3" id="idFields" style="display:none;">

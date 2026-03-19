@@ -127,7 +127,12 @@ include_once './dbcon.php';
                     foreach ($announcements as $announcement) {
                         $id = "announcement-" . $announcement['id_announcement'];
                 ?>
-                        <div class="swiper-slide">
+                        <div class="swiper-slide cursor-pointer"
+                            onclick="openModal(
+                                `<?= htmlspecialchars($announcement['title']); ?>`,
+                                `<?= !empty($announcement['photo']) ? $announcement['photo'] : '' ?>`,
+                                `<?= htmlspecialchars($announcement['event']); ?>`
+                            )">
                             <div class="bg-white shadow-md rounded-lg p-6 flex flex-col h-full slide-content">
                                 <h3 class="font-bold text-lg mb-2"><?= htmlspecialchars($announcement['title']); ?></h3>
 
@@ -157,7 +162,12 @@ include_once './dbcon.php';
                     while ($rw = mysqli_fetch_assoc($rs)) {
                         $id = "activity-" . $rw['id_activity'];
                     ?>
-                        <div class="swiper-slide">
+                        <div class="swiper-slide cursor-pointer"
+                            onclick="openModal(
+                        `<?= htmlspecialchars($rw['name']); ?>`,
+                        `<?= !empty($rw['image']) ? $rw['image'] : '' ?>`,
+                        `Date: <?= htmlspecialchars($rw['date']); ?>`
+                    )">
                             <div class="bg-white shadow-md rounded-lg p-6 flex flex-col h-full slide-content">
                                 <h3 class="font-bold text-lg mb-2"><?= htmlspecialchars($rw['name']); ?></h3>
 
@@ -189,7 +199,77 @@ include_once './dbcon.php';
             <div class="swiper-button-prev"></div>
         </div>
     </div>
+    <!-- MODAL -->
+    <div id="carouselModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
 
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl p-6 relative animate-scaleIn">
+
+            <!-- Close -->
+            <button onclick="closeModal()" class="absolute top-3 right-3 text-gray-500 hover:text-black text-2xl">
+                &times;
+            </button>
+
+            <!-- Content -->
+            <h3 id="modalTitle" class="text-2xl font-semibold mb-3"></h3>
+
+            <img id="modalImage" class="w-full mb-4 rounded-lg hidden object-cover max-h-64">
+
+            <p id="modalContent" class="text-gray-700 whitespace-pre-line"></p>
+
+        </div>
+    </div>
+    <script>
+        function openModal(title, image, content) {
+            document.getElementById("modalTitle").textContent = title;
+            document.getElementById("modalContent").textContent = content;
+
+            const img = document.getElementById("modalImage");
+
+            if (image) {
+                img.src = image;
+                img.classList.remove("hidden");
+            } else {
+                img.classList.add("hidden");
+            }
+
+            const modal = document.getElementById("carouselModal");
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+
+            // Prevent swiper dragging when modal open
+            document.body.classList.add("overflow-hidden");
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("carouselModal");
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+
+            document.body.classList.remove("overflow-hidden");
+        }
+
+        // Close when clicking outside
+        document.getElementById("carouselModal").addEventListener("click", function(e) {
+            if (e.target === this) closeModal();
+        });
+    </script>
+    <style>
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .animate-scaleIn {
+            animation: scaleIn 0.2s ease;
+        }
+    </style>
     <script>
         // Set equal heights for slides
         function setEqualSlideHeights() {

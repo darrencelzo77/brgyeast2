@@ -220,9 +220,10 @@ $conn->exec($createTableSQL);
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">Nationality</label><span style="color:red;">*</span>
-                                    <select class="form-control" name="nationality" required>
+                                    <!-- <select class="form-control" name="nationality" required>
                                         <option value="Filipino" selected>Filipino</option>
-                                    </select>
+                                    </select> -->
+                                    <input class="form-control" name="nationality" value="Filipino" required readonly />
                                 </div>
                             </div>
 
@@ -282,7 +283,7 @@ $conn->exec($createTableSQL);
                                 <div class="col rb">
                                     <div class="form-group">
                                         <label>Are you a registered voter? </label>
-                                        <select class="form-control" name="voter" id="regvote" >
+                                        <select class="form-control" name="voter" id="regvote">
                                             <option value="">...</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
@@ -295,7 +296,7 @@ $conn->exec($createTableSQL);
                                 <div class="col rb">
                                     <div class="form-group">
                                         <label>PWD? </label>
-                                        <select class="form-control" name="pwd" id="pwd" >
+                                        <select class="form-control" name="pwd" id="pwd">
                                             <option value="">...</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
@@ -312,7 +313,7 @@ $conn->exec($createTableSQL);
                                 <div class="col rb">
                                     <div class="form-group">
                                         <label>Indigent? </label>
-                                        <select class="form-control" name="indigent" id="indigent" >
+                                        <select class="form-control" name="indigent" id="indigent">
                                             <option value="">...</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
@@ -324,7 +325,7 @@ $conn->exec($createTableSQL);
                                 <div class="col rb">
                                     <div class="form-group">
                                         <label>Single Parent? </label>
-                                        <select class="form-control" name="single_parent" id="single_parent" >
+                                        <select class="form-control" name="single_parent" id="single_parent">
                                             <option value="">...</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
@@ -336,7 +337,7 @@ $conn->exec($createTableSQL);
                                 <div class="col rb">
                                     <div class="form-group">
                                         <label>Pregnant? </label>
-                                        <select class="form-control" name="pregnant" id="pregnant" >
+                                        <select class="form-control" name="pregnant" id="pregnant">
                                             <option value="">...</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
@@ -351,8 +352,8 @@ $conn->exec($createTableSQL);
                                 <div hidden class="col rb">
                                     <div class="form-group">
                                         <label>Malnourished? </label>
-                                        <select class="form-control" name="malnourished" id="malnourished" >
-                                            <option selected value="N/A" >...</option>
+                                        <select class="form-control" name="malnourished" id="malnourished">
+                                            <option selected value="N/A">...</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
                                         </select>
@@ -363,7 +364,7 @@ $conn->exec($createTableSQL);
                                 <div class="col rb">
                                     <div class="form-group">
                                         <label>Member of 4Ps? </label>
-                                        <select class="form-control" name="four_ps" id="four_ps" >
+                                        <select class="form-control" name="four_ps" id="four_ps">
                                             <option value="">...</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
@@ -375,7 +376,7 @@ $conn->exec($createTableSQL);
                                 <div class="col rb">
                                     <div class="form-group">
                                         <label>Member of Senior Citizen? </label>
-                                        <select class="form-control" name="senior_citizen" id="senior_citizen" >
+                                        <select class="form-control" name="senior_citizen" id="senior_citizen">
                                             <option value="">...</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
@@ -389,7 +390,7 @@ $conn->exec($createTableSQL);
                                 <div class="col rb">
                                     <div class="form-group">
                                         <label>Out of School Youth? </label>
-                                        <select class="form-control" name="out_of_school_youth" id="out_of_school_youth" >
+                                        <select class="form-control" name="out_of_school_youth" id="out_of_school_youth">
                                             <option value="">...</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
@@ -403,7 +404,7 @@ $conn->exec($createTableSQL);
                                 <div class="col rb">
                                     <div class="form-group">
                                         <label>LGBTQ+? </label>
-                                        <select class="form-control" name="lgbtq" id="lgbtq" >
+                                        <select class="form-control" name="lgbtq" id="lgbtq">
                                             <option value="">...</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
@@ -437,24 +438,15 @@ $conn->exec($createTableSQL);
                                         <option>PhilSys ID (National ID)</option>
                                         <option>Passport</option>
                                         <option>Driver’s License</option>
-                                        <option>SSS ID</option>
                                         <option>UMID</option>
+                                        <option>SSS ID</option>
                                         <option>PhilHealth ID</option>
                                         <option>Pag-IBIG ID</option>
                                         <option>Voter’s ID / Voter’s Certification</option>
                                         <option>Postal ID</option>
                                         <option>PRC ID</option>
-                                        <option>Senior Citizen ID</option>
-                                        <option>PWD ID</option>
-                                        <option>Barangay ID</option>
-                                        <option>Police Clearance ID</option>
-                                        <option>NBI Clearance</option>
                                         <option>Company ID</option>
                                         <option>School ID</option>
-                                        <option>OFW ID (OWWA ID)</option>
-                                        <option>Seaman’s Book</option>
-                                        <option>GSIS ID</option>
-                                        <option>Firearms License ID</option>
                                     </select>
                                 </div>
 
@@ -465,24 +457,15 @@ $conn->exec($createTableSQL);
                                         <option>PhilSys ID (National ID)</option>
                                         <option>Passport</option>
                                         <option>Driver’s License</option>
-                                        <option>SSS ID</option>
                                         <option>UMID</option>
+                                        <option>SSS ID</option>
                                         <option>PhilHealth ID</option>
                                         <option>Pag-IBIG ID</option>
                                         <option>Voter’s ID / Voter’s Certification</option>
                                         <option>Postal ID</option>
                                         <option>PRC ID</option>
-                                        <option>Senior Citizen ID</option>
-                                        <option>PWD ID</option>
-                                        <option>Barangay ID</option>
-                                        <option>Police Clearance ID</option>
-                                        <option>NBI Clearance</option>
                                         <option>Company ID</option>
                                         <option>School ID</option>
-                                        <option>OFW ID (OWWA ID)</option>
-                                        <option>Seaman’s Book</option>
-                                        <option>GSIS ID</option>
-                                        <option>Firearms License ID</option>
                                     </select>
                                 </div>
                             </div>

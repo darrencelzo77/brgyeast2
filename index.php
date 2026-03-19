@@ -7,6 +7,16 @@ require('classes/conn.php');
 require('classes/main.class.php');
 require('classes/staff.class.php');
 require('classes/info.class.php');
+
+
+include('classes/resident.class.php');
+require('classes/conn.php');
+include_once './dbcon.php';
+
+$userdetails = $bmis->get_userdata();
+
+$dt = new DateTime("now", new DateTimeZone('Asia/Manila'));
+$cdate = $dt->format('Y/m/d');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,6 +28,15 @@ require('classes/info.class.php');
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+
+
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
+
+  <!-- Swiper Carousel -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -225,57 +244,251 @@ require('classes/info.class.php');
 
 
 
-    <!-- RECENT ACTIVITIES -->
-    <section id="offer" class="py-16 bg-gray-100">
-      <h2 class="text-3xl font-bold text-center text-blue-900 mb-12 opacity-0 translate-y-10 transition-all duration-700 ease-out" data-animate>Recent Activities</h2>
-      <div class="max-w-7xl mx-auto px-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <?php
-        $activities = [
-          [
-            'name' => 'Mutya ng East Modern Site 2025',
-            'date' => '2025-05-16',
-            'image' => 'assets/mutya_event.jpg',
-            'desc' => "The most coveted crown in the Barangay, Mutya ng East Modern Site 2025. Apply now and be an inspiration. Show us your beauty, grace, and confidence. 
-WHO CAN JOIN? 
-- Must be at least 16 years of age and under 28 years of age 
-- Must be a 1 year resident of Barangay East Modern Site 
-- Female, never been married or borne children 
-- At least 5'3 ft. tall
-Get the form through this link: https://drive.google.com/.../1MsHH...
-More details about the requirements are on the official application form. 
-For other information please call: +63 967 536 7599"
-          ]
-        ];
 
-        foreach ($activities as $i => $activity) {
-          $id = "modal-" . $i;
-          $shortDesc = strlen($activity['desc']) > 150 ? substr($activity['desc'], 0, 150) . '...' : $activity['desc'];
-        ?>
-          <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 hover:shadow-2xl transition-all duration-300 opacity-0 translate-y-10" data-animate>
-            <img src="<?php echo $activity['image']; ?>" alt="<?php echo $activity['name']; ?>" class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
-            <div class="p-4">
-              <h4 class="text-xl font-semibold text-blue-900 mb-2"><?php echo $activity['name']; ?></h4>
-              <p class="text-gray-600 text-sm mb-2"><?php echo $activity['date']; ?></p>
-              <p class="text-gray-700 text-sm text-justify"><?php echo $shortDesc; ?></p>
-              <?php if (strlen($activity['desc']) > 150): ?>
-                <button onclick="openModal('<?php echo $id; ?>')" class="text-blue-700 hover:underline text-sm mt-2">Read More</button>
-              <?php endif; ?>
-            </div>
-          </div>
+    <!-- ANNOUNCEMENTS & ACTIVITIES CAROUSEL -->
+    <div id="down2" class="container mx-auto py-10 mt-16">
+      <h2 class="text-3xl font-bold mb-6 text-center">Announcements & Activities</h2>
 
-          <!-- MODAL -->
-          <div id="<?php echo $id; ?>" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-            <div class="bg-white rounded-lg w-11/12 md:w-2/3 lg:w-1/2 p-6 relative transform scale-95 transition-transform duration-300">
-              <button onclick="closeModal('<?php echo $id; ?>')" class="absolute top-2 right-2 text-gray-700 hover:text-gray-900 text-xl font-bold">&times;</button>
-              <h4 class="text-xl font-semibold text-blue-900 mb-4"><?php echo $activity['name']; ?></h4>
-              <p class="text-gray-600 mb-4"><?php echo $activity['date']; ?></p>
-              <p class="text-gray-700 text-justify"><?php echo $activity['desc']; ?></p>
-            </div>
-          </div>
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
 
-        <?php } ?>
+          <?php
+          // ANNOUNCEMENTS
+          $announcements = $bmis->view_announcement();
+          if (!empty($announcements) && is_array($announcements)) {
+            foreach ($announcements as $announcement) {
+              $id = "announcement-" . $announcement['id_announcement'];
+          ?>
+              <div class="swiper-slide cursor-pointer"
+                onclick="openModal(
+                                `<?= htmlspecialchars($announcement['title']); ?>`,
+                                `<?= !empty($announcement['photo']) ? $announcement['photo'] : '' ?>`,
+                                `<?= htmlspecialchars($announcement['event']); ?>`
+                            )">
+                <div class="bg-white shadow-md rounded-lg p-6 flex flex-col h-full slide-content">
+                  <h3 class="font-bold text-lg mb-2"><?= htmlspecialchars($announcement['title']); ?></h3>
+
+                  <?php if (!empty($announcement['photo']) && file_exists($announcement['photo'])): ?>
+                    <img src="<?= $announcement['photo']; ?>" class="announcement-img mb-2 rounded w-full object-cover max-h-48">
+                  <?php endif; ?>
+
+                  <p class="text-gray-700 mb-4 truncate-lines"><?= htmlspecialchars($announcement['event']); ?></p>
+
+                  <button onclick="toggleExpand('<?= $id ?>')" class="text-blue-600 hover:underline self-start mb-2">Read More</button>
+
+                  <div id="<?= $id ?>" class="expandable-content hidden mt-2 max-h-64 border-t pt-2">
+                    <p class="text-gray-800"><?= nl2br(htmlspecialchars($announcement['event'])); ?></p>
+                    <button onclick="toggleExpand('<?= $id ?>')" class="mt-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            <?php
+            }
+          }
+
+          // ACTIVITIES
+          $rs = mysqli_query($db_connection, "SELECT id_activity, name, date, image FROM tbl_activities");
+          if ($rs && mysqli_num_rows($rs) > 0) {
+            while ($rw = mysqli_fetch_assoc($rs)) {
+              $id = "activity-" . $rw['id_activity'];
+            ?>
+              <div class="swiper-slide cursor-pointer"
+                onclick="openModal(
+                        `<?= htmlspecialchars($rw['name']); ?>`,
+                        `<?= !empty($rw['image']) ? $rw['image'] : '' ?>`,
+                        `Date: <?= htmlspecialchars($rw['date']); ?>`
+                    )">
+                <div class="bg-white shadow-md rounded-lg p-6 flex flex-col h-full slide-content">
+                  <h3 class="font-bold text-lg mb-2"><?= htmlspecialchars($rw['name']); ?></h3>
+
+                  <?php if (!empty($rw['image']) && file_exists($rw['image'])): ?>
+                    <img src="<?= $rw['image']; ?>" class="announcement-img mb-2 rounded w-full object-cover max-h-48">
+                  <?php endif; ?>
+
+                  <p class="text-gray-700 mb-4">Date: <?= htmlspecialchars($rw['date']); ?></p>
+
+                  <button onclick="toggleExpand('<?= $id ?>')" class="text-blue-600 hover:underline self-start mb-2">Read More</button>
+
+                  <div id="<?= $id ?>" class="expandable-content hidden mt-2 max-h-64 border-t pt-2">
+                    <p class="text-gray-800">Date: <?= htmlspecialchars($rw['date']); ?></p>
+                    <button onclick="toggleExpand('<?= $id ?>')" class="mt-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+          <?php
+            }
+          }
+          ?>
+
+        </div>
+
+        <div class="swiper-pagination mt-4"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
       </div>
-    </section>
+    </div>
+    <!-- MODAL -->
+    <div id="carouselModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
+
+      <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl p-6 relative animate-scaleIn">
+
+        <!-- Close -->
+        <button onclick="closeModal()" class="absolute top-3 right-3 text-gray-500 hover:text-black text-2xl">
+          &times;
+        </button>
+
+        <!-- Content -->
+        <h3 id="modalTitle" class="text-2xl font-semibold mb-3"></h3>
+
+        <img id="modalImage" class="w-full mb-4 rounded-lg hidden object-cover max-h-64">
+
+        <p id="modalContent" class="text-gray-700 whitespace-pre-line"></p>
+
+      </div>
+    </div>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    function openModal(title, image, content) {
+        const modal = document.getElementById("carouselModal");
+        const titleEl = document.getElementById("modalTitle");
+        const contentEl = document.getElementById("modalContent");
+        const img = document.getElementById("modalImage");
+
+        if (!modal || !titleEl || !contentEl || !img) {
+            console.error("Modal elements not found");
+            return;
+        }
+
+        titleEl.textContent = title;
+        contentEl.textContent = content;
+
+        if (image) {
+            img.src = image;
+            img.classList.remove("hidden");
+        } else {
+            img.classList.add("hidden");
+        }
+
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+
+        document.body.classList.add("overflow-hidden");
+    }
+
+    function closeModal() {
+        const modal = document.getElementById("carouselModal");
+        if (!modal) return;
+
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+
+        document.body.classList.remove("overflow-hidden");
+    }
+
+    // Make functions global (important for onclick)
+    window.openModal = openModal;
+    window.closeModal = closeModal;
+
+    // Safe event binding
+    const modalEl = document.getElementById("carouselModal");
+    if (modalEl) {
+        modalEl.addEventListener("click", function (e) {
+            if (e.target === this) closeModal();
+        });
+    }
+
+});
+</script>
+    <style>
+      @keyframes scaleIn {
+        from {
+          transform: scale(0.9);
+          opacity: 0;
+        }
+
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .animate-scaleIn {
+        animation: scaleIn 0.2s ease;
+      }
+    </style>
+    <script>
+      // Set equal heights for slides
+      function setEqualSlideHeights() {
+        const slides = document.querySelectorAll('.slide-content');
+        let maxHeight = 0;
+        slides.forEach(slide => slide.style.height = 'auto');
+        slides.forEach(slide => {
+          if (slide.offsetHeight > maxHeight) maxHeight = slide.offsetHeight;
+        });
+        slides.forEach(slide => slide.style.height = maxHeight + 'px');
+      }
+
+      // Swiper Initialization
+      const swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev"
+        },
+        breakpoints: {
+          640: {
+            slidesPerView: 1
+          },
+          768: {
+            slidesPerView: 2
+          },
+          1024: {
+            slidesPerView: 3
+          }
+        },
+        on: {
+          init: function() {
+            setEqualSlideHeights();
+          },
+          resize: function() {
+            setEqualSlideHeights();
+          }
+        }
+      });
+
+      // Expand/Collapse content
+      function toggleExpand(id) {
+        const el = document.getElementById(id);
+        if (el.classList.contains('hidden')) {
+          el.classList.remove('hidden');
+          el.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        } else {
+          el.classList.add('hidden');
+        }
+      }
+    </script>
+
+
+
+
+
+
+
+
 
     <!-- FOOTER -->
     <footer class="bg-blue-900 text-white py-12">
